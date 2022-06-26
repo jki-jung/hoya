@@ -4,13 +4,101 @@
 #include <QLineEdit>
 #include <QSoundEffect>
 
-#include "selfdrive/hardware/hw.h"
-#include "selfdrive/ui/qt/widgets/controls.h"
-#include "selfdrive/ui/ui.h"
+
 #include <QComboBox>
 #include <QAbstractItemView>
 #include <QMessageBox>
 #include <QProcess>
+
+#include "selfdrive/hardware/hw.h"
+#include "selfdrive/ui/qt/widgets/controls.h"
+#include "selfdrive/ui/qt/widgets/groupWidget.h"
+#include "selfdrive/ui/ui.h"
+
+
+class CLateralControlGroup : public CGroupWidget 
+{
+  Q_OBJECT
+
+public:
+  explicit CLateralControlGroup();
+
+  enum TunType {
+    LAT_PID = 0,
+    LAT_INDI,
+    LAT_LQR,
+    LAT_TOROUE,
+    LAT_MULTI,
+    LAT_ALL,
+  };  
+
+ private:
+  QPushButton  *method_label;
+  int    m_nMethod;
+  Params params;
+  
+  void  FramePID(QVBoxLayout *parent=nullptr);
+  void  FrameINDI(QVBoxLayout *parent=nullptr);
+  void  FrameLQR(QVBoxLayout *parent=nullptr);
+  void  FrameTORQUE(QVBoxLayout *parent=nullptr);
+  void  FrameMULTI(QVBoxLayout *parent=nullptr);
+
+  
+
+public slots:  
+  virtual void refresh(int nID = 0);  
+};
+
+class CLongControlGroup : public CGroupWidget 
+{
+  Q_OBJECT
+
+public:
+  explicit CLongControlGroup();
+
+};
+
+class CPandaGroup : public CGroupWidget 
+{
+  Q_OBJECT
+
+public:
+  explicit CPandaGroup();
+
+};
+
+class CGitGroup : public CGroupWidget 
+{
+  Q_OBJECT
+
+public:
+  explicit CGitGroup( void *parent=0);
+};
+
+
+class CUtilWidget : public CGroupWidget 
+{
+  Q_OBJECT
+
+public:
+  explicit CUtilWidget( void *parent );
+};
+
+
+class CPresetWidget : public CGroupWidget 
+{
+  Q_OBJECT
+
+public:
+  explicit CPresetWidget();
+
+public slots:  
+  virtual void refresh(int nID = 0);
+
+  
+};
+
+
 
 class SwitchOpenpilot : public ButtonControl {
   Q_OBJECT
@@ -84,6 +172,18 @@ public:
     QObject::connect(this, &CruiseGapAdjustToggle::toggleFlipped, [=](int state) {
       bool status = state ? true : false;
       Params().putBool("CruiseGapAdjust", status);
+    });
+  }
+};
+
+class DrivingCruiseGapAdjustToggle : public ToggleControl {
+  Q_OBJECT
+
+public:
+  DrivingCruiseGapAdjustToggle() : ToggleControl("Change Cruise Gap when SCC", "Automatically adjust the distance between cars while driving. [20km/h~(Gap2), 45km/h~(Gap3), 85km/h~(Gap4)]. Don't choose long control. Sometimes, cruise error can occur.", "../assets/offroad/icon_shell.png", Params().getBool("DrivingCruiseGapAdjust")) {
+    QObject::connect(this, &DrivingCruiseGapAdjustToggle::toggleFlipped, [=](int state) {
+      bool status = state ? true : false;
+      Params().putBool("DrivingCruiseGapAdjust", status);
     });
   }
 };
