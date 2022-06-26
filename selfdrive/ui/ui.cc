@@ -44,11 +44,11 @@ static int get_path_length_idx(const cereal::ModelDataV2::XYZTData::Reader &line
   return max_idx;
 }
 
-static void update_leads(UIState *s, const cereal::RadarState::Reader &radar_state, std::optional<cereal::ModelDataV2::XYZTData::Reader> line) {
+static void update_leads(UIState *s, const cereal::RadarState::Reader &radar_state, const cereal::ModelDataV2::XYZTData::Reader &line) {
   for (int i = 0; i < 2; ++i) {
     auto lead_data = (i == 0) ? radar_state.getLeadOne() : radar_state.getLeadTwo();
     if (lead_data.getStatus()) {
-      float z = line ? (*line).getZ()[get_path_length_idx(*line, lead_data.getDRel())] : 0.0;
+      float z = line.getZ()[get_path_length_idx(line, lead_data.getDRel())];
       calib_frame_to_full_frame(s, lead_data.getDRel(), -lead_data.getYRel(), z + 1.22, &s->scene.lead_vertices[i]);
     }
   }
@@ -131,7 +131,7 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
   const auto road_edge_stds = model.getRoadEdgeStds();
   for (int i = 0; i < std::size(scene.road_edge_vertices); i++) {
     scene.road_edge_stds[i] = road_edge_stds[i];
-    update_line_data(s, road_edges[i], 0.025, 0, &scene.road_edge_vertices[i], max_idx);
+    update_line_data(s, road_edges[i], 0.1, 0, &scene.road_edge_vertices[i], max_idx);
   }
 
   // update path
@@ -141,7 +141,7 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
     max_distance = std::clamp((float)(lead_d - fmin(lead_d * 0.35, 10.)), 0.0f, max_distance);
   }
   max_idx = get_path_length_idx(model_position, max_distance);
-  update_line_data(s, model_position, 0.5, 1.22, &scene.track_vertices, max_idx);
+  update_line_data(s, model_position, 1.0, 1.22, &scene.track_vertices, max_idx);
 
    // update blindspot line
   for (int i = 0; i < std::size(scene.lane_blindspot_vertices); i++) {
@@ -464,17 +464,17 @@ static void update_status(UIState *s) {
         system("am start com.waze/com.waze.MainActivity");
       }
 
-    } else if (s->sm->frame - s->scene.started_frame > 20*UI_FREQ) {
+    } else if (s->sm->frame - s->scene.started_frame > 10*UI_FREQ) {
       s->scene.navi_on_boot = true;
     }
   }
-  if (!s->scene.move_to_background && (s->sm->frame - s->scene.started_frame > 10*UI_FREQ)) {
+  if (!s->scene.move_to_background && (s->sm->frame - s->scene.started_frame > 5*UI_FREQ)) {
     if (params.getBool("OpkrRunNaviOnBoot") && params.getBool("OpkrMapEnable") && params.getBool("ControlsReady") && (params.get("CarParams").size() > 0)) {
       s->scene.move_to_background = true;
       s->scene.map_on_top = false;
       s->scene.map_on_overlay = true;
       system("am start --activity-task-on-home com.opkr.maphack/com.opkr.maphack.MainActivity");
-    } else if (s->sm->frame - s->scene.started_frame > 20*UI_FREQ) {
+    } else if (s->sm->frame - s->scene.started_frame > 10*UI_FREQ) {
       s->scene.move_to_background = true;
     }
   }

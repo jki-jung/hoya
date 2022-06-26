@@ -63,19 +63,21 @@ class CarInterface(CarInterfaceBase):
     #ret.maxSteeringAngleDeg = 90
     ret.minSteerSpeed = 16.67 # m/s
 
+
+
     # Most Hyundai car ports are community features for now
     ret.pcmCruise = not ret.radarOffCan
 
     ret.steerActuatorDelay = 0.25  # Default delay
     ret.steerRateCost = 0.35
-    ret.steerLimitTimer = 0.8
+    ret.steerLimitTimer = 1.0
     tire_stiffness_factor = 1.
 
     set_long_tune(ret.longitudinalTuning, LongTunes.OPKR)
 
     ret.stoppingControl = False
-    ret.vEgoStopping = 0.8  # 1.0, 0.5
-    ret.vEgoStarting = 0.8  # needs to be >= vEgoStopping to avoid state transition oscillation
+    ret.vEgoStopping = 1.0  # 1.0, 0.5
+    ret.vEgoStarting = 1.0  # needs to be >= vEgoStopping to avoid state transition oscillation
     ret.stopAccel = -2.0 # 0.0, -0.5    
     ret.stoppingDecelRate = 1.0 # 0.8, 0.2  # brake_travel/s while trying to stop
     
