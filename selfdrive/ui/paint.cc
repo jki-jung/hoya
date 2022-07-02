@@ -169,10 +169,10 @@ static void ui_draw_stop_sign(UIState *s) {
   // float center_y = 105.0f;
   // float radius_i = 5.0f;
   // float radius_o = 75.0f;
-  int TRsign_w = 140;
-  int TRsign_h = 250;
+  int TRsign_w = 250;
+  int TRsign_h = 140;
   int TRsign_x = 960 + TRsign_w * 2;
-  int TRsign_y = 80; 
+  int TRsign_y = 50; 
 
   if (s->scene.longitudinalPlan.e2ex[12] > 30 && s->scene.longitudinalPlan.stopline[12] < 10 && s->scene.car_state.getVEgo() < 0.5) {
     // nvgBeginPath(s->vg);
