@@ -165,23 +165,15 @@ static void ui_draw_stop_line(UIState *s, const cereal::ModelDataV2::StopLineDat
 }
 
 static void ui_draw_stop_sign(UIState *s) {
-  float center_x = 1400.0f;
-  float center_y = 105.0f;
-  float radius_i = 5.0f;
-  float radius_o = 75.0f;
+  int TRsign_w = 250;
+  int TRsign_h = 140;
+  int TRsign_x = 960 + TRsign_w;
+  int TRsign_y = 50; 
 
   if (s->scene.longitudinalPlan.e2ex[12] > 30 && s->scene.longitudinalPlan.stopline[12] < 10 && s->scene.car_state.getVEgo() < 0.5) {
-    nvgBeginPath(s->vg);
-    nvgCircle(s->vg, center_x, center_y, radius_i+radius_o);
-    NVGpaint stop_sign = nvgRadialGradient(s->vg, center_x, center_y, radius_i, radius_o, nvgRGBAf(0.0, 1.0, 0.0, 0.9), nvgRGBAf(0.0, 0.0, 0.0, 0.3));
-    nvgFillPaint(s->vg, stop_sign);
-    nvgFill(s->vg);
+    ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_green", 0.8f);    
   } else if (s->scene.longitudinalPlan.e2ex[12] < 100 && s->scene.longitudinalPlan.stopline[12] < 100) {
-    nvgBeginPath(s->vg);
-    nvgCircle(s->vg, center_x, center_y, radius_i+radius_o);
-    NVGpaint stop_sign = nvgRadialGradient(s->vg, center_x, center_y, radius_i, radius_o, nvgRGBAf(1.0, 0.0, 0.0, 0.9), nvgRGBAf(0.0, 0.0, 0.0, 0.3));
-    nvgFillPaint(s->vg, stop_sign);
-    nvgFill(s->vg);
+    ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_red", 0.8f);       
   }
 }
 
@@ -2090,7 +2082,8 @@ void ui_nvg_init(UIState *s) {
     {"turn_signal_l", "../assets/addon/img/turn_signal_l.png"},
     {"turn_signal_r", "../assets/addon/img/turn_signal_r.png"},    
     {"tire_pressure", "../assets/addon/img/img_tire_pressure.png"},
-    
+    {"trafficLight_green", "../assets/addon/img/img_trafficLight_green.png"},
+    {"trafficLight_red", "../assets/addon/img/img_trafficLight_red.png"},
   };
   for (auto [name, file] : images) {
     s->images[name] = nvgCreateImage(s->vg, file, 1);
