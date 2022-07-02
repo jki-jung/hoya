@@ -1979,7 +1979,6 @@ static void ui_draw_vision(UIState *s) {
     if (s->scene.stop_line) {
       ui_draw_stop_sign(s);
     }
-    ui_draw_stop_sign(s); //test
   }
 }
 
