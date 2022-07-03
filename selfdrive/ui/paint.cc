@@ -167,13 +167,13 @@ static void ui_draw_stop_line(UIState *s, const cereal::ModelDataV2::StopLineDat
 static void ui_draw_stop_sign(UIState *s) {
   int TRsign_w = 250;
   int TRsign_h = 140;
-  int TRsign_x = 960 + TRsign_w;
+  int TRsign_x = 960 + 40 + TRsign_w;
   int TRsign_y = 50; 
 
-  if (s->scene.longitudinalPlan.e2ex[12] > 30 && s->scene.longitudinalPlan.stopline[12] < 10 && s->scene.car_state.getVEgo() < 0.5) {
+  if (s->scene.longitudinalPlan.e2ex[12] > 30 && s->scene.longitudinalPlan.stopline[12] < 10) { // && s->scene.car_state.getVEgo() < 20) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_green", 0.8f);    
   } else if (s->scene.longitudinalPlan.e2ex[12] < 100 && s->scene.longitudinalPlan.stopline[12] < 100) {
-    ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_red", 0.8f);       
+    ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_red", 0.8f);
   }
 }
 
