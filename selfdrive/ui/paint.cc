@@ -170,10 +170,11 @@ static void ui_draw_stop_sign(UIState *s) {
   int TRsign_x = 960 + 40 + TRsign_w;
   int TRsign_y = 50; 
 
-  if (s->scene.longitudinalPlan.e2ex[12] > 30 && s->scene.longitudinalPlan.stopline[12] < 10) { // && s->scene.car_state.getVEgo() < 20) {
+  if (s->scene.longitudinalPlan.e2ex[12] > 30 && (s->scene.longitudinalPlan.stopline[12] < 10 || s->scene.longitudinalPlan.stopline[12] == 400)) { // && s->scene.car_state.getVEgo() > 0.5) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_green", 0.8f);    
   } else if (s->scene.longitudinalPlan.e2ex[12] < 100 && s->scene.longitudinalPlan.stopline[12] < 100) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_red", 0.8f);
+    ui_draw_image(s, {960-175+400, 540-150, 350, 350}, "stopman", 0.8f);
   }
 }
 
@@ -350,7 +351,7 @@ static void ui_draw_standstill(UIState *s) {
   const UIScene &scene = s->scene;
 
   int viz_standstill_x = s->fb_w/2;
-  int viz_standstill_y = bdr_s + 160 + 250;
+  int viz_standstill_y = bdr_s + 160 + 250 + 100;
   
   int minute = 0;
   int second = 0;
@@ -365,14 +366,14 @@ static void ui_draw_standstill(UIState *s) {
     } else {
       nvgFontSize(s->vg, 170);
     }
-    nvgFillColor(s->vg, COLOR_ORANGE_ALPHA(240));
+    nvgFillColor(s->vg, COLOR_ORANGE_ALPHA(200));
     ui_print(s, viz_standstill_x, viz_standstill_y, "STOP");
     if (scene.mapbox_running) {
       nvgFontSize(s->vg, 150);
     } else {
       nvgFontSize(s->vg, 200);
     }
-    nvgFillColor(s->vg, COLOR_WHITE_ALPHA(240));
+    nvgFillColor(s->vg, COLOR_WHITE_ALPHA(200));
     ui_print(s, viz_standstill_x, scene.mapbox_running ? viz_standstill_y+100 : viz_standstill_y+150, "%01d:%02d", minute, second);
   }
 }
@@ -2078,7 +2079,8 @@ void ui_nvg_init(UIState *s) {
     {"gear_N", "../assets/addon/img/gearN.png"},
     {"gear_D", "../assets/addon/img/gearD.png"},
     {"gear_X", "../assets/addon/img/gearX.png"},
-    {"gear_BG", "../assets/addon/img/gearBG.png"},    
+    {"gear_BG", "../assets/addon/img/gearBG.png"},
+    {"stopman", "../assets/addon/img/stopman.png"},
     {"turn_signal_l", "../assets/addon/img/turn_signal_l.png"},
     {"turn_signal_r", "../assets/addon/img/turn_signal_r.png"},    
     {"tire_pressure", "../assets/addon/img/img_tire_pressure.png"},
