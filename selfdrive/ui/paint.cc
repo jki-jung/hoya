@@ -350,7 +350,7 @@ static void ui_draw_standstill(UIState *s) {
   const UIScene &scene = s->scene;
 
   int viz_standstill_x = s->fb_w/2;
-  int viz_standstill_y = bdr_s + 160 + 250;
+  int viz_standstill_y = bdr_s + 160 + 250 + 100;
   
   int minute = 0;
   int second = 0;
@@ -365,14 +365,14 @@ static void ui_draw_standstill(UIState *s) {
     } else {
       nvgFontSize(s->vg, 170);
     }
-    nvgFillColor(s->vg, COLOR_ORANGE_ALPHA(240));
+    nvgFillColor(s->vg, COLOR_ORANGE_ALPHA(200));
     ui_print(s, viz_standstill_x, viz_standstill_y, "STOP");
     if (scene.mapbox_running) {
       nvgFontSize(s->vg, 150);
     } else {
       nvgFontSize(s->vg, 200);
     }
-    nvgFillColor(s->vg, COLOR_WHITE_ALPHA(240));
+    nvgFillColor(s->vg, COLOR_WHITE_ALPHA(200));
     ui_print(s, viz_standstill_x, scene.mapbox_running ? viz_standstill_y+100 : viz_standstill_y+150, "%01d:%02d", minute, second);
   }
 }
