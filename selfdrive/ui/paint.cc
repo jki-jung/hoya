@@ -174,6 +174,7 @@ static void ui_draw_stop_sign(UIState *s) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_green", 0.8f);    
   } else if (s->scene.longitudinalPlan.e2ex[12] < 100 && s->scene.longitudinalPlan.stopline[12] < 100) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_red", 0.8f);
+    ui_draw_image(s, {960-175+380, 540-150, 350, 350}, "stopman", 0.8f); }
   }
 }
 
@@ -2078,7 +2079,8 @@ void ui_nvg_init(UIState *s) {
     {"gear_N", "../assets/addon/img/gearN.png"},
     {"gear_D", "../assets/addon/img/gearD.png"},
     {"gear_X", "../assets/addon/img/gearX.png"},
-    {"gear_BG", "../assets/addon/img/gearBG.png"},    
+    {"gear_BG", "../assets/addon/img/gearBG.png"},
+    {"stopman", "../assets/addon/img/stopman.png"},
     {"turn_signal_l", "../assets/addon/img/turn_signal_l.png"},
     {"turn_signal_r", "../assets/addon/img/turn_signal_r.png"},    
     {"tire_pressure", "../assets/addon/img/img_tire_pressure.png"},
