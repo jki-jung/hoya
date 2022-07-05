@@ -174,7 +174,7 @@ static void ui_draw_stop_sign(UIState *s) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_green", 0.8f);    
   } else if (s->scene.longitudinalPlan.e2ex[12] < 100 && s->scene.longitudinalPlan.stopline[12] < 100) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_red", 0.8f);
-    ui_draw_image(s, {960-175+400, 540-150, 350, 350}, "stopman", 0.8f);
+    ui_draw_image(s, {960-175+420, 540-150, 350, 350}, "stopman", 0.8f);
   }
 }
 
