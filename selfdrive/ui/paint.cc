@@ -172,7 +172,7 @@ static void ui_draw_stop_sign(UIState *s) {
 
   if (s->scene.longitudinalPlan.e2ex[12] > 30 && (s->scene.longitudinalPlan.stopline[12] < 10 || s->scene.longitudinalPlan.stopline[12] == 400)) { // && s->scene.car_state.getVEgo() > 0.5) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_green", 0.8f);    
-  } else if (s->scene.longitudinalPlan.e2ex[12] < 100 && s->scene.longitudinalPlan.stopline[12] < 100) {
+  } else if (s->scene.longitudinalPlan.e2ex[12] > 0 && s->scene.longitudinalPlan.e2ex[12] < 100 && s->scene.longitudinalPlan.stopline[12] < 100 && s->scene.longitudinalPlan.stopline[12] != 400) {
     ui_draw_image(s, {TRsign_x, TRsign_y, TRsign_w, TRsign_h}, "trafficLight_red", 0.8f);
     ui_draw_image(s, {960-175+420, 540-150, 350, 350}, "stopman", 0.8f);
   }
