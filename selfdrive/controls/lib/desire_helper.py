@@ -71,6 +71,10 @@ class DesireHelper:
         self.output_scale = controlstate.lateralControlState.indiState.output
       elif CP.lateralTuning.which() == 'lqr':
         self.output_scale = controlstate.lateralControlState.lqrState.output
+      elif CP.lateralTuning.which() == 'torque':
+        self.output_scale = controlstate.lateralControlState.torqueState.output
+      elif CP.lateralTuning.which() == 'atom':
+        self.output_scale = controlstate.lateralControlState.atomState.output
     except:
       pass
     v_ego = carstate.vEgo
@@ -85,9 +89,9 @@ class DesireHelper:
     right_nearside_prob = md.laneLineProbs[3]
     right_edge_prob = np.clip(1.0 - md.roadEdgeStds[1], 0.0, 1.0)
 
-    if right_edge_prob > 0.35 and right_nearside_prob < 0.2 and right_close_prob > 0.5 and left_nearside_prob >= right_nearside_prob:
+    if right_edge_prob > 0.35 and right_nearside_prob < 0.2 and left_nearside_prob >= right_nearside_prob:
       road_edge_stat = 1
-    elif left_edge_prob > 0.35 and left_nearside_prob < 0.2 and left_close_prob > 0.5 and right_nearside_prob >= left_nearside_prob:
+    elif left_edge_prob > 0.35 and left_nearside_prob < 0.2 and right_nearside_prob >= left_nearside_prob:
       road_edge_stat = -1
     else:
       road_edge_stat = 0
@@ -103,7 +107,7 @@ class DesireHelper:
 
     if self.lane_change_state == LaneChangeState.off and road_edge_stat == lane_direction:
       self.lane_change_direction = LaneChangeDirection.none
-    elif (not controlstate.active) or (self.lane_change_timer > LANE_CHANGE_TIME_MAX) or (abs(self.output_scale) >= 0.8 and self.lane_change_timer > 1):
+    elif (not controlstate.active) or (self.lane_change_timer > LANE_CHANGE_TIME_MAX) or (abs(self.output_scale) >= 0.85 and self.lane_change_timer > 0.7):
       self.lane_change_state = LaneChangeState.off
       self.lane_change_direction = LaneChangeDirection.none
     else:

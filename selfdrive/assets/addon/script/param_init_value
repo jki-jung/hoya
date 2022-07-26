@@ -12,7 +12,7 @@ OpkrAutoLaneChangeDelay:0
 OpkrSteerAngleCorrection:0
 PutPrebuiltOn:1
 LdwsCarFix:0
-LateralControlMethod:3
+LateralControlMethod:2
 CruiseStatemodeSelInit:1
 InnerLoopGain:35
 OuterLoopGain:20

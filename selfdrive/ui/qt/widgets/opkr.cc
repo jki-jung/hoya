@@ -706,7 +706,7 @@ BranchSelectCombo::BranchSelectCombo() : AbstractControl("", "", "")
     refresh();
   });
 
-  hlayout->addWidget(&combobox);
+  hlayout->addWidget(&combobox, Qt::AlignLeft);
   hlayout->addWidget(&btn, Qt::AlignRight);
 
   QObject::connect(&combobox, static_cast<void(QComboBox::*)(int)>(&QComboBox::activated), [=](int index)
