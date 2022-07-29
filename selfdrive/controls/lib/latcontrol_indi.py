@@ -76,7 +76,7 @@ class LatControlINDI(LatControl):
         
       self.mpc_frame = 0
 
-  def update(self, active, CS, CP, VM, params, last_actuators, desired_curvature, desired_curvature_rate, llk):
+  def update(self, active, CS, CP, VM, params, last_actuators, steer_limited, desired_curvature, desired_curvature_rate, llk):
     self.speed = CS.vEgo
 
     self.RC = interp(self.speed, self._RC[0], self._RC[1])
@@ -141,6 +141,6 @@ class LatControlINDI(LatControl):
       indi_log.delayedOutput = float(self.steer_filter.x)
       indi_log.delta = float(delta_u)
       indi_log.output = float(output_steer)
-      indi_log.saturated = self._check_saturation(self.steer_max - abs(output_steer) < 1e-3, CS)
+      indi_log.saturated = self._check_saturation(self.steer_max - abs(output_steer) < 1e-3, CS, steer_limited)
 
     return float(output_steer), float(steers_des), indi_log

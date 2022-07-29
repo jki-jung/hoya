@@ -35,14 +35,6 @@
        <curve color="#0072b2" name="/carState/steeringPressed"/>
       </plot>
      </DockArea>
-     <DockArea name="Steering Limited: Rate [orange] Saturated [magenta]">
-      <plot style="Lines" mode="TimeSeries">
-       <range left="1.253354" top="1.025000" bottom="-0.025000" right="631.055584"/>
-       <limitY/>
-       <curve name="/carState/steeringRateLimited" color="#ffb000"/>
-       <curve name="/controlsState/lateralControlState/pidState/saturated" color="#dc267f"/>
-      </plot>
-     </DockArea>
     </DockSplitter>
    </Container>
   </Tab>
@@ -120,14 +112,6 @@
        <limitY/>
        <curve color="#009e73" name="/carControl/enabled"/>
        <curve color="#0072b2" name="/carState/steeringPressed"/>
-      </plot>
-     </DockArea>
-     <DockArea name="Steering Limited: Rate [orange] Saturated [magenta]">
-      <plot style="Lines" mode="TimeSeries">
-       <range left="1.253354" top="1.025000" bottom="-0.025000" right="631.055584"/>
-       <limitY/>
-       <curve name="/carState/steeringRateLimited" color="#ffb000"/>
-       <curve name="/controlsState/lateralControlState/pidState/saturated" color="#dc267f"/>
       </plot>
      </DockArea>
     </DockSplitter>

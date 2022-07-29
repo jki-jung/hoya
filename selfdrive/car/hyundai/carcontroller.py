@@ -60,7 +60,6 @@ class CarController():
 
     self.apply_steer_last = 0
     self.car_fingerprint = CP.carFingerprint
-    self.steer_rate_limited = False
     self.lkas11_cnt = 0
     self.scc12_cnt = 0
     self.counter_init = False
@@ -301,7 +300,6 @@ class CarController():
     else:
       new_steer = int(round(actuators.steer * self.steerMax))
     apply_steer = apply_std_steer_torque_limits(new_steer, self.apply_steer_last, CS.out.steeringTorque, self.p)
-    self.steer_rate_limited = new_steer != apply_steer
 
     if self.to_avoid_lkas_fault_enabled: # Shane and Greg's idea
       lkas_active = c.active

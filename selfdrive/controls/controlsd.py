@@ -179,6 +179,7 @@ class Controls:
     self.logged_comm_issue = False
     self.button_timers = {ButtonEvent.Type.decelCruise: 0, ButtonEvent.Type.accelCruise: 0}
     self.last_actuators = car.CarControl.Actuators.new_message()
+    self.steer_limited = False
 
     # TODO: no longer necessary, aside from process replay
     self.sm['liveParameters'].valid = True
@@ -695,7 +696,7 @@ class Controls:
                                                                              lat_plan.psis,
                                                                              lat_plan.curvatures,
                                                                              lat_plan.curvatureRates)
-      actuators.steer, actuators.steeringAngleDeg, lac_log = self.LaC.update(lat_active, CS, self.CP, self.VM, params, self.last_actuators,
+      actuators.steer, actuators.steeringAngleDeg, lac_log = self.LaC.update(lat_active, CS, self.CP, self.VM, params, self.last_actuators, self.steer_limited,
                                                                              desired_curvature, desired_curvature_rate, self.sm['liveLocationKalman'])
       self.desired_angle_deg = actuators.steeringAngleDeg
     else:
@@ -856,12 +857,14 @@ class Controls:
         self.last_actuators, can_sends, self.safety_speed, self.lkas_temporary_off = self.CI.apply(CC)
         self.pm.send('sendcan', can_list_to_can_capnp(can_sends, msgtype='sendcan', valid=CS.canValid))
         CC.actuatorsOutput = self.last_actuators
+        self.steer_limited = abs(CC.actuators.steer - CC.actuatorsOutput.steer) > 1e-2
     else:
       if not self.read_only and self.initialized:
         # send car controls over can
         self.last_actuators, can_sends, self.safety_speed, self.lkas_temporary_off = self.CI.apply(CC)
         self.pm.send('sendcan', can_list_to_can_capnp(can_sends, msgtype='sendcan', valid=CS.canValid))
         CC.actuatorsOutput = self.last_actuators
+        self.steer_limited = abs(CC.actuators.steer - CC.actuatorsOutput.steer) > 1e-2
 
     force_decel = (self.sm['driverMonitoringState'].awarenessStatus < 0.) or \
                   (self.state == State.softDisabling)
