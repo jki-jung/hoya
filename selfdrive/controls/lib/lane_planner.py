@@ -8,8 +8,8 @@ from selfdrive.swaglog import cloudlog
 from common.params import Params
 from decimal import Decimal
 
-ENABLE_ZORROBYTE = False # Neokii with Zorrobyte
-ENABLE_INC_LANE_PROB = False # Neokii
+ENABLE_ZORROBYTE = True # Neokii with Zorrobyte
+ENABLE_INC_LANE_PROB = True # Neokii
 
 TRAJECTORY_SIZE = 33
 # camera offset is meters from center car to camera
