@@ -228,7 +228,6 @@ def manager_init() -> None:
     ("RTShield", "1"),
     ("OSMOfflineUse", "0"),
     ("StopAtStopSign", "0"),
-    ("VarCruiseSpeedFactor", "0"),
    ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))

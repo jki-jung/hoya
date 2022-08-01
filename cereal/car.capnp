@@ -465,8 +465,8 @@ struct CarParams {
   minEnableSpeed @7 :Float32;
   minSteerSpeed @8 :Float32;
   smoothSteer @54 :SmoothSteerData;
-  safetyConfigs @62 :List(SafetyConfig);
-  alternativeExperience @65 :Int16;      # panda flag for features like no disengage on gas
+  unsafeMode @62 :Int16;
+  alternativeExperience @65 :Int16;      # panda flag for features like no disengage on gas 
 
   steerMaxBPDEPRECATED @11 :List(Float32);
   steerMaxVDEPRECATED @12 :List(Float32);
@@ -524,11 +524,6 @@ struct CarParams {
   networkLocation @50 :NetworkLocation;  # Where Panda/C2 is integrated into the car's CAN network
 
   wheelSpeedFactor @63 :Float32; # Multiplier on wheels speeds to computer actual speeds
-
-  struct SafetyConfig {
-    safetyModel @0 :SafetyModel;
-    safetyParam @1 :UInt16;
-  }
 
   mdpsBus @67: Int8;
   sasBus @68: Int8;
@@ -659,7 +654,6 @@ struct CarParams {
     hyundaiCommunity @24;
     stellantis @25;
     faw @26;
-    body @27;
   }
 
   enum SteerControlType {
@@ -704,8 +698,6 @@ struct CarParams {
     programmedFuelInjection @14;
     electricBrakeBooster @15;
     shiftByWire @16;
-
-    debug @17;
   }
 
   enum FingerprintSource {
@@ -722,9 +714,9 @@ struct CarParams {
   enableCameraDEPRECATED @4 :Bool;
   isPandaBlackDEPRECATED @39 :Bool;
   hasStockCameraDEPRECATED @57 :Bool;
-  safetyParamDEPRECATED @10 :Int16;
-  safetyModelDEPRECATED @9 :SafetyModel;
-  safetyModelPassiveDEPRECATED @42 :SafetyModel = silent;
+  safetyParam @10 :Int16;
+  safetyModel @9 :SafetyModel;
+  safetyModelPassive @42 :SafetyModel = silent;
   minSpeedCanDEPRECATED @51 :Float32;
   startAccelDEPRECATED @32 :Float32;
   communityFeatureDEPRECATED @46: Bool;

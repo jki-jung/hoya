@@ -396,7 +396,7 @@ struct PandaState @0xa7649e2575e4591e {
   pandaType @10 :PandaType;
   ignitionCan @13 :Bool;
   safetyModel @14 :Car.CarParams.SafetyModel;
-  safetyParam @20 :UInt16;
+  safetyParam @20 :Int16;
   alternativeExperience @23 :Int16;
   faultStatus @15 :FaultStatus;
   powerSaveEnabled @16 :Bool;
@@ -405,7 +405,6 @@ struct PandaState @0xa7649e2575e4591e {
   harnessStatus @21 :HarnessStatus;
   heartbeatLost @22 :Bool;
   blockedCnt @24 :UInt32;
-  interruptLoad @25 :Float32;
 
   enum FaultStatus {
     none @0;
@@ -462,17 +461,9 @@ struct PandaState @0xa7649e2575e4591e {
   current @1 :UInt32;
   hasGps @6 :Bool;
   fanSpeedRpm @11 :UInt16;
-  usbPowerMode @12 :PeripheralState.UsbPowerMode;
-}
+  usbPowerMode @12 :UsbPowerMode;
 
-struct PeripheralState {
-  pandaType @0 :PandaState.PandaType;
-  voltage @1 :UInt32;
-  current @2 :UInt32;
-  fanSpeedRpm @3 :UInt16;
-  usbPowerMode @4 :UsbPowerMode;
-
-  enum UsbPowerMode @0xa8883583b32c9877 {
+  enum UsbPowerMode {
     none @0;
     client @1;
     cdp @2;
@@ -658,7 +649,7 @@ struct ControlsState @0x97ff69c53601abf1 {
     saturated @8 :Bool;
     steeringAngleDesiredDeg @9 :Float32;
    }
-
+  
   struct LateralTorqueState {
     active @0 :Bool;
     error @1 :Float32;
@@ -983,7 +974,6 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
 }
 
 struct LateralPlan @0xe1e9318e2ae8b51e {
-  modelMonoTime @31 :UInt64;
   laneWidth @0 :Float32;
   lProb @5 :Float32;
   rProb @7 :Float32;
@@ -1004,14 +994,14 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   solverExecutionTime @30 :Float32;
 
   # opkr
-  outputScale @32 :Float32;
-  steerRateCost @33 :Float32;
-  standstillElapsedTime @34 :Float32;
-  vCruiseSet @35 :Float32;
-  vCurvature @36 :Float32;
-  lanelessMode @37 :Bool;
-  modelSpeed @38 :Float32;
-  totalCameraOffset @39 :Float32;
+  outputScale @31 :Float32;
+  steerRateCost @32 :Float32;
+  standstillElapsedTime @33 :Float32;
+  vCruiseSet @34 :Float32;
+  vCurvature @35 :Float32;
+  lanelessMode @36 :Bool;
+  modelSpeed @37 :Float32;
+  totalCameraOffset @38 :Float32;
 
   enum Desire {
     none @0;
@@ -1882,13 +1872,6 @@ struct NavRoute {
   }
 }
 
-struct EncodeData {
-  idx @0 :EncodeIndex;
-  data @1 :Data;
-  header @2 :Data;
-  unixTimestampNanos @3 :UInt64;
-}
-
 struct Event {
   logMonoTime @0 :UInt64;  # nanoseconds
   valid @67 :Bool = true;
@@ -1906,8 +1889,7 @@ struct Event {
     can @5 :List(CanData);
     controlsState @7 :ControlsState;
     sensorEvents @11 :List(SensorEventData);
-    pandaStates @81 :List(PandaState);
-    peripheralState @80 :PeripheralState;
+    pandaState @12 :PandaState;
     radarState @13 :RadarState;
     liveTracks @16 :List(LiveTracks);
     sendcan @17 :List(CanData);
@@ -1937,7 +1919,6 @@ struct Event {
     roadEncodeIdx @15 :EncodeIndex;
     driverEncodeIdx @76 :EncodeIndex;
     wideRoadEncodeIdx @77 :EncodeIndex;
-    qRoadEncodeIdx @90 :EncodeIndex;
 
     # systems stuff
     androidLog @20 :AndroidLogEntry;
@@ -1950,8 +1931,8 @@ struct Event {
     errorLogMessage @85 :Text;
 
     # OPKR Navi
-    liveNaviData @91 :LiveNaviData;
-    liveMapData @92: LiveMapData;
+    liveNaviData @80 :LiveNaviData;
+    liveMapData @81: LiveMapData;
 
     # navigation
     navInstruction @82 :NavInstruction;
@@ -1960,10 +1941,6 @@ struct Event {
 
     # *********** debug ***********
     testJoystick @52 :Joystick;
-    roadEncodeData @86 :EncodeData;
-    driverEncodeData @87 :EncodeData;
-    wideRoadEncodeData @88 :EncodeData;
-    qRoadEncodeData @89 :EncodeData;
 
     # *********** legacy + deprecated ***********
     model @9 :Legacy.ModelData; # TODO: rename modelV2 and mark this as deprecated
@@ -2001,6 +1978,5 @@ struct Event {
     kalmanOdometryDEPRECATED @65 :Legacy.KalmanOdometry;
     gpsLocationDEPRECATED @21 :GpsLocationData;
     uiLayoutStateDEPRECATED @57 :Legacy.UiLayoutState;
-    pandaStateDEPRECATED @12 :PandaState;
   }
 }
