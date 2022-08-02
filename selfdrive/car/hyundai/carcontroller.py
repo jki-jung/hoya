@@ -170,6 +170,7 @@ class CarController():
     self.cc_timer = 0
     self.on_speed_control = False
     self.curv_speed_control = False
+    self.cut_in_control = False
     self.vFuture = 0
     self.vFutureA = 0
     self.cruise_init = False
@@ -550,6 +551,7 @@ class CarController():
     elif self.opkr_variablecruise and CS.acc_active and CS.out.cruiseState.modeSel > 0:
       self.on_speed_control = self.NC.onSpeedControl
       self.curv_speed_control = self.NC.curvSpeedControl
+      self.cut_in_control = self.NC.cutInControl
       btn_signal = self.NC.update(CS, path_plan)
       if self.opkr_cruisegap_auto_adj:
         # gap restore
@@ -600,6 +602,7 @@ class CarController():
     else:
       self.on_speed_control = False
       self.curv_speed_control = False
+      self.cut_in_control = False
       self.cruise_gap_adjusting = False
       self.standstill_res_button = False
       self.auto_res_starting = False
