@@ -71,7 +71,7 @@ medmodel_frame_from_bigmodel_frame = np.dot(medmodel_intrinsics, np.linalg.inv(b
 
 ### This function mimics the update_calibration logic in modeld.cc
 ### Manually verified to give similar results to xx.uncommon.utils.transform_img
-def get_warp_matrix(rpy_calib, wide_cam=False, big_model=False, tici=True):
+def get_warp_matrix(rpy_calib, wide_cam=False, big_model=False, tici=False):
   from common.transformations.orientation import rot_from_euler
   from common.transformations.camera import view_frame_from_device_frame, eon_fcam_intrinsics, tici_ecam_intrinsics, tici_fcam_intrinsics
 
@@ -95,7 +95,7 @@ def get_warp_matrix(rpy_calib, wide_cam=False, big_model=False, tici=True):
 
 
 ### This is old, just for debugging
-def get_warp_matrix_old(rpy_calib, wide_cam=False, big_model=False, tici=True):
+def get_warp_matrix_old(rpy_calib, wide_cam=False, big_model=False, tici=False):
   from common.transformations.orientation import rot_from_euler
   from common.transformations.camera import view_frame_from_device_frame, eon_fcam_intrinsics, tici_ecam_intrinsics, tici_fcam_intrinsics
 

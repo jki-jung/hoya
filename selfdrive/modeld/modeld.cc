@@ -128,7 +128,7 @@ void run_model(ModelState &model, VisionIpcClient &vipc_client_main, VisionIpcCl
       }
 
       model_transform_main = update_calibration(device_from_calib_euler, main_wide_camera, false);
-      model_transform_extra = update_calibration(device_from_calib_euler, true, true);
+      model_transform_extra = update_calibration(device_from_calib_euler, Hardware::TICI(), true);
       live_calib_seen = true;
     }
 
