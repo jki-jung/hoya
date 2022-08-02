@@ -17,8 +17,6 @@ import cereal.messaging as messaging
 from common.conversions import Conversions as CV
 from common.params import Params, put_nonblocking
 from common.realtime import set_realtime_priority
-from common.transformations.model import model_height
-from common.transformations.camera import get_view_frame_from_road_frame
 from common.transformations.orientation import rot_from_euler, euler_from_rot
 from selfdrive.hardware import TICI
 from selfdrive.swaglog import cloudlog
@@ -179,7 +177,6 @@ class Calibrator:
 
   def get_msg(self) -> capnp.lib.capnp._DynamicStructBuilder:
     smooth_rpy = self.get_smooth_rpy()
-    extrinsic_matrix = get_view_frame_from_road_frame(0, smooth_rpy[1], smooth_rpy[2], model_height)
 
     msg = messaging.new_message('liveCalibration')
     liveCalibration = msg.liveCalibration
@@ -187,7 +184,6 @@ class Calibrator:
     liveCalibration.validBlocks = self.valid_blocks
     liveCalibration.calStatus = self.cal_status
     liveCalibration.calPerc = min(100 * (self.valid_blocks * BLOCK_SIZE + self.idx) // (INPUTS_NEEDED * BLOCK_SIZE), 100)
-    liveCalibration.extrinsicMatrix = extrinsic_matrix.flatten().tolist()
     liveCalibration.rpyCalib = smooth_rpy.tolist()
     liveCalibration.rpyCalibSpread = self.calib_spread.tolist()
     return msg
