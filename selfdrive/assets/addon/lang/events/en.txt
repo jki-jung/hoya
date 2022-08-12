@@ -172,10 +172,10 @@ Harness Malfunction
 Harness Malfunction
 Check Hardware
 Harness Malfunction
-Openpilot Canceled
+openpilot Canceled
 No close lead car
 No close lead car
-Openpilot Canceled
+openpilot Canceled
 Speed too low
 Speed Too High
 Model uncertain at this speed
