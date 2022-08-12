@@ -129,51 +129,48 @@
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="101"/>
-        <source>NETWORK\nOFFLINE</source>
-        <translation>네트워크
-오프라인</translation>
+        <location filename="../qt/sidebar.cc" line="103"/>
+        <source>NETWORK</source>
+        <translation>네트워크</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="101"/>
+        <source>OFFLINE</source>
+        <translation>오프라인</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="103"/>
-        <source>NETWORK\nONLINE</source>
-        <translation>네트워크
-온라인</translation>
+        <location filename="../qt/sidebar.cc" line="116"/>
+        <location filename="../qt/sidebar.cc" line="122"/>
+        <location filename="../qt/sidebar.cc" line="124"/>
+        <source>ONLINE</source>
+        <translation>온라인</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="103"/>
-        <source>NETWORK\nERROR</source>
-        <translation>네트워크
-오류</translation>
+        <source>ERROR</source>
+        <translation>오류</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="116"/>
-        <source>VEHICLE\nONLINE</source>
-        <translation>차량
-연결됨</translation>
-    </message>
-    <message>
-        <location filename="../qt/sidebar.cc" line="118"/>
-        <source>NO\nPANDA</source>
-        <translation>판다
-연결안됨</translation>
+        <location filename="../qt/sidebar.cc" line="120"/>
+        <source>VEHICLE</source>
+        <translation>차량</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="120"/>
-        <source>VEHICLE\nOFFROAD</source>
-        <translation>차량
-오프로드</translation>
+        <source>OFFROAD</source>
+        <translation>오프로드</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="122"/>
-        <source>ONLINE\nGPS Search</source>
-        <translation>온라인
-GPS검색중</translation>
+        <source>GPS Search</source>
+        <translation>GPS검색중</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="124"/>
-        <source>ONLINE\nSAT : %1</source>
-        <translation>온라인
-위성 : %1</translation>
+        <source>SAT : </source>
+        <translation>위성: </translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="187"/>
