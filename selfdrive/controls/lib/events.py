@@ -10,6 +10,8 @@ from common.realtime import DT_CTRL
 from common.conversions import Conversions as CV
 from selfdrive.locationd.calibrationd import MIN_SPEED_FILTER
 
+from common.params import Params
+
 AlertSize = log.ControlsState.AlertSize
 AlertStatus = log.ControlsState.AlertStatus
 VisualAlert = car.CarControl.HUDControl.VisualAlert
@@ -42,10 +44,11 @@ class ET:
 # get event name from enum
 EVENT_NAME = {v: k for k, v in EventName.schema.enumerants.items()}
 
+LANG_FILE='/data/openpilot/selfdrive/assets/addon/lang/events/' + Params().get("LanguageSetting", encoding="utf8") + '.txt'
 
 # opkr
 def tr(line_num: int):
-  return linecache.getline('/data/events_lang.txt', line_num)
+  return linecache.getline(LANG_FILE, line_num)
 
 class Events:
   def __init__(self):

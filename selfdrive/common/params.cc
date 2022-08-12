@@ -383,7 +383,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"OSMOfflineUse", PERSISTENT},
     {"StopAtStopSign", PERSISTENT},
     {"VarCruiseSpeedFactor", PERSISTENT},
-    {"LanguageSelection", PERSISTENT},
+    {"LanguageSetting", PERSISTENT},
 };
 
 } // namespace

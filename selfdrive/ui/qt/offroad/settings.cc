@@ -169,6 +169,18 @@ DevicePanel::DevicePanel(SettingsWindow *parent) : ListWidget(parent) {
   });
   addItem(resetCalibBtn);
 
+  auto translateBtn = new ButtonControl(tr("Change Language"), tr("CHANGE"), "");
+  connect(translateBtn, &ButtonControl::clicked, [=]() {
+    QMap<QString, QString> langs = getSupportedLanguages();
+    QString currentLang = QString::fromStdString(Params().get("LanguageSetting"));
+    QString selection = MultiOptionDialog::getSelection(tr("Select a language"), langs.keys(), langs.key(currentLang), this);
+    if (!selection.isEmpty()) {
+      // put language setting, exit Qt UI, and trigger fast restart
+      Params().put("LanguageSetting", langs[selection].toStdString());
+    }
+  });
+  addItem(translateBtn);
+
   QObject::connect(parent, &SettingsWindow::offroadTransition, [=](bool offroad) {
     for (auto btn : findChildren<ButtonControl *>()) {
       btn->setEnabled(offroad);
@@ -499,7 +511,6 @@ UIPanel::UIPanel(QWidget *parent) : QFrame(parent) {
   layout->addWidget(new HoldForSettingToggle());
   layout->addWidget(new RTShieldToggle());
   layout->addWidget(new OSMOfflineUseToggle());
-  layout->addWidget(new LanguageSelection());
 }
 
 DrivingPanel::DrivingPanel(QWidget *parent) : QFrame(parent) {
