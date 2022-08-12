@@ -23,6 +23,7 @@ class LateralPlanner:
     self.LP = LanePlanner(wide_camera)
     self.DH = DesireHelper(CP)
 
+    # Vehicle model parameters used to calculate lateral movement of car
     self.factor1 = CP.wheelbase - CP.centerToFront
     self.factor2 = (CP.centerToFront * CP.mass) / (CP.wheelbase * CP.tireStiffnessRear)
     self.last_cloudlog_t = 0
@@ -32,6 +33,7 @@ class LateralPlanner:
     self.path_xyz = np.zeros((TRAJECTORY_SIZE, 3))
     self.path_xyz_stds = np.ones((TRAJECTORY_SIZE, 3))
     self.plan_yaw = np.zeros((TRAJECTORY_SIZE,))
+    self.plan_curv_rate = np.zeros((TRAJECTORY_SIZE,))
     self.t_idxs = np.arange(TRAJECTORY_SIZE)
     self.y_pts = np.zeros(TRAJECTORY_SIZE)
 
@@ -101,7 +103,7 @@ class LateralPlanner:
     if len(md.position.x) == TRAJECTORY_SIZE and len(md.orientation.x) == TRAJECTORY_SIZE:
       self.path_xyz = np.column_stack([md.position.x, md.position.y, md.position.z])
       self.t_idxs = np.array(md.position.t)
-      self.plan_yaw = list(md.orientation.z)
+      self.plan_yaw = np.array(md.orientation.z)
     if len(md.position.xStd) == TRAJECTORY_SIZE:
       self.path_xyz_stds = np.column_stack([md.position.xStd, md.position.yStd, md.position.zStd])
 
@@ -162,14 +164,13 @@ class LateralPlanner:
     assert len(y_pts) == LAT_MPC_N + 1
     assert len(heading_pts) == LAT_MPC_N + 1
     assert len(curv_rate_pts) == LAT_MPC_N + 1    
-    # self.x0[4] = v_ego
     lateral_factor = max(0, self.factor1 - (self.factor2 * v_ego**2))
     p = np.array([v_ego, lateral_factor])
     self.lat_mpc.run(self.x0,
                      p,
                      y_pts,
                      heading_pts,
-                     np.zeros_like(curv_rate_pts))
+                     curv_rate_pts)
     # init state for next
     # mpc.u_sol is the desired curvature rate given x0 curv state. 
     # with x0[3] = measured_curvature, this would be the actual desired rate.
