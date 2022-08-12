@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
     QSslConfiguration ssl = QSslConfiguration::defaultConfiguration();
     ssl.setCaCertificates(QSslCertificate::fromPath("/usr/etc/tls/cert.pem"));
     QSslConfiguration::setDefaultConfiguration(ssl);
+  }
 
   QTranslator translator;
   QString translation_file = QString::fromStdString(Params().get("LanguageSetting"));
