@@ -174,7 +174,7 @@
     </message>
 </context>
 <context>
-    <name>Text</name>
+    <name>QObject</name>
     <message>
         <location filename="../qt/text.cc" line="55"/>
         <source>Update</source>
