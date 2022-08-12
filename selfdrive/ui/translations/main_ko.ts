@@ -121,7 +121,7 @@
     </message>
 </context>
 <context>
-    <name>Sidebar</name>
+    <name>QObject</name>
     <message>
         <location filename="../qt/sidebar.cc" line="86"/>
         <source>Hold 0.3 sec on the button to enter Setting Menu.</source>

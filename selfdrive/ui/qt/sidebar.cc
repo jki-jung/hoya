@@ -83,7 +83,7 @@ void Sidebar::mouseReleaseEvent(QMouseEvent *event) {
   } else if ( pressTime > MY_LONG_PRESS_THRESHOLD && trig_settings) {
     emit openSettings();
   } else if ( pressTime < 300 && trig_settings) {
-    ConfirmationDialog::alert(tr("Hold 0.5 sec on the button to enter Setting Menu."), this);
+    ConfirmationDialog::alert(QObject::tr("Hold 0.5 sec on the button to enter Setting Menu."), this);
   }
 }
 
@@ -98,9 +98,9 @@ void Sidebar::updateState(const UIState &s) {
   ItemStatus connectStatus;
   auto last_ping = deviceState.getLastAthenaPingTime();
   if (last_ping == 0) {
-    connectStatus = ItemStatus{tr("NETWORK\nOFFLINE"), warning_color};
+    connectStatus = ItemStatus{QObject::tr("NETWORK\nOFFLINE"), warning_color};
   } else {
-    connectStatus = nanos_since_boot() - last_ping < 80e9 ? ItemStatus{tr("NETWORK\nONLINE"), good_color} : ItemStatus{tr("NETWORK\nERROR"), danger_color};
+    connectStatus = nanos_since_boot() - last_ping < 80e9 ? ItemStatus{QObject::tr("NETWORK\nONLINE"), good_color} : ItemStatus{QObject::tr("NETWORK\nERROR"), danger_color};
   }
   setProperty("connectStatus", QVariant::fromValue(connectStatus));
 
@@ -113,15 +113,15 @@ void Sidebar::updateState(const UIState &s) {
   }
   setProperty("tempStatus", QVariant::fromValue(ItemStatus{QString("%1℃").arg((int)deviceState.getAmbientTempC()), tempColor}));
 
-  ItemStatus pandaStatus = {tr("VEHICLE\nONLINE"), good_color};
+  ItemStatus pandaStatus = {QObject::tr("VEHICLE\nONLINE"), good_color};
   if (s.scene.pandaType == cereal::PandaState::PandaType::UNKNOWN) {
-    pandaStatus = {tr("NO\nPANDA"), danger_color};
+    pandaStatus = {QObject::tr("NO\nPANDA"), danger_color};
   } else if (!s.scene.ignition) {
-    pandaStatus = {tr("VEHICLE\nOFFROAD"), warning_color};
+    pandaStatus = {QObject::tr("VEHICLE\nOFFROAD"), warning_color};
   } else if (s.scene.started && s.scene.gpsAccuracyUblox != 0.00 && (s.scene.gpsAccuracyUblox > 99 || s.scene.gpsAccuracyUblox == 0)) {
-    pandaStatus = {tr("ONLINE\nGPS Search"), warning_color};
+    pandaStatus = {QObject::tr("ONLINE\nGPS Search"), warning_color};
   } else if (s.scene.satelliteCount > 0) {
-  	pandaStatus = {QString(tr("ONLINE\nSAT : %1")).arg(s.scene.satelliteCount), good_color};
+  	pandaStatus = {QObject::QString(tr("ONLINE\nSAT : %1")).arg(s.scene.satelliteCount), good_color};
   }
   setProperty("pandaStatus", QVariant::fromValue(pandaStatus));
 
