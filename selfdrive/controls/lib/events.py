@@ -44,7 +44,11 @@ class ET:
 # get event name from enum
 EVENT_NAME = {v: k for k, v in EventName.schema.enumerants.items()}
 
-LANG_FILE='/data/openpilot/selfdrive/assets/addon/lang/events/' + Params().get("LanguageSetting", encoding="utf8") + '.txt'
+try:
+  LANG_FILE='/data/openpilot/selfdrive/assets/addon/lang/events/' + Params().get("LanguageSetting", encoding="utf8") + '.txt'
+except:
+  LANG_FILE='/data/openpilot/selfdrive/assets/addon/lang/events/main_en.txt'
+  pass
 
 # opkr
 def tr(line_num: int):
