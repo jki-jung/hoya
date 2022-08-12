@@ -5,7 +5,7 @@ from common.realtime import sec_since_boot, DT_MDL
 from common.numpy_fast import interp
 from selfdrive.swaglog import cloudlog
 from selfdrive.controls.lib.lateral_mpc_lib.lat_mpc import LateralMpc
-from selfdrive.controls.lib.drive_helpers import CONTROL_N, MPC_COST_LAT, LAT_MPC_N, CAR_ROTATION_RADIUS
+from selfdrive.controls.lib.drive_helpers import CONTROL_N, MPC_COST_LAT, LAT_MPC_N
 from selfdrive.controls.lib.lane_planner import LanePlanner, TRAJECTORY_SIZE
 from selfdrive.controls.lib.desire_helper import DesireHelper
 import cereal.messaging as messaging
@@ -23,6 +23,8 @@ class LateralPlanner:
     self.LP = LanePlanner(wide_camera)
     self.DH = DesireHelper(CP)
 
+    self.factor1 = CP.wheelbase - CP.centerToFront
+    self.factor2 = (CP.centerToFront * CP.mass) / (CP.wheelbase * CP.tireStiffnessRear)
     self.last_cloudlog_t = 0
     self.steer_rate_cost = CP.steerRateCost
     self.solution_invalid_cnt = 0
@@ -154,16 +156,20 @@ class LateralPlanner:
 
     y_pts = np.interp(v_ego * self.t_idxs[:LAT_MPC_N + 1], np.linalg.norm(d_path_xyz, axis=1), d_path_xyz[:, 1])
     heading_pts = np.interp(v_ego * self.t_idxs[:LAT_MPC_N + 1], np.linalg.norm(self.path_xyz, axis=1), self.plan_yaw)
+    curv_rate_pts = np.interp(v_ego * self.t_idxs[:LAT_MPC_N + 1], np.linalg.norm(self.path_xyz, axis=1), self.plan_curv_rate)
     self.y_pts = y_pts
 
     assert len(y_pts) == LAT_MPC_N + 1
     assert len(heading_pts) == LAT_MPC_N + 1
+    assert len(curv_rate_pts) == LAT_MPC_N + 1    
     # self.x0[4] = v_ego
-    p = np.array([v_ego, CAR_ROTATION_RADIUS])
+    lateral_factor = max(0, self.factor1 - (self.factor2 * v_ego**2))
+    p = np.array([v_ego, lateral_factor])
     self.lat_mpc.run(self.x0,
                      p,
                      y_pts,
-                     heading_pts)
+                     heading_pts,
+                     np.zeros_like(curv_rate_pts))
     # init state for next
     # mpc.u_sol is the desired curvature rate given x0 curv state. 
     # with x0[3] = measured_curvature, this would be the actual desired rate.
