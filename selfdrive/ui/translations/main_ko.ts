@@ -165,16 +165,13 @@
     <message>
         <location filename="../qt/sidebar.cc" line="124"/>
         <source>ONLINE\nSAT : %1</source>
-        <translation>온라인\nSAT : %1</translation>
+        <translation>온라인\n위성 : %1</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="187"/>
         <source>SYS TEMP</source>
         <translation>장치온도</translation>
     </message>
-</context>
-<context>
-    <name>QObject</name>
     <message>
         <location filename="../qt/text.cc" line="55"/>
         <source>Update</source>
@@ -200,9 +197,6 @@
         <source>Exit</source>
         <translation>종료</translation>
     </message>
-</context>
-<context>
-    <name>QObject</name>
     <message>
         <location filename="../qt/util.cc" line="20"/>
         <source>dashcam</source>

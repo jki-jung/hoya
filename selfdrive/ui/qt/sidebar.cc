@@ -121,7 +121,7 @@ void Sidebar::updateState(const UIState &s) {
   } else if (s.scene.started && s.scene.gpsAccuracyUblox != 0.00 && (s.scene.gpsAccuracyUblox > 99 || s.scene.gpsAccuracyUblox == 0)) {
     pandaStatus = {QObject::tr("ONLINE\nGPS Search"), warning_color};
   } else if (s.scene.satelliteCount > 0) {
-  	pandaStatus = {QObject::QString(tr("ONLINE\nSAT : %1")).arg(s.scene.satelliteCount), good_color};
+  	pandaStatus = {QString(QObject::tr("ONLINE\nSAT : %1")).arg(s.scene.satelliteCount), good_color};
   }
   setProperty("pandaStatus", QVariant::fromValue(pandaStatus));
 
