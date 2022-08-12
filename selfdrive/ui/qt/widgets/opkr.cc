@@ -8126,3 +8126,69 @@ VariableCruiseLevel::VariableCruiseLevel() : AbstractControl("Button Spamming Le
 void VariableCruiseLevel::refresh() {
   label.setText(QString::fromStdString(params.get("VarCruiseSpeedFactor")));
 }
+
+LanguageSelection::LanguageSelection() : AbstractControl("Language", "Select Language", "../assets/offroad/icon_shell.png") {
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  btnminus.setText("◀");
+  btnplus.setText("▶");
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("LanguageSelection"));
+    int value = str.toInt();
+    value = value - 1;
+    if (value <= -1) {
+      value = 1;
+    }
+    QString values = QString::number(value);
+    params.put("LanguageSelection", values.toStdString());
+    refresh();
+  });
+  
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("LanguageSelection"));
+    int value = str.toInt();
+    value = value + 1;
+    if (value >= 2) {
+      value = 0;
+    }
+    QString values = QString::number(value);
+    params.put("LanguageSelection", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void LanguageSelection::refresh() {
+  QString option = QString::fromStdString(params.get("LanguageSelection"));
+  if (option == "1") {
+    label.setText(QString::fromStdString("Korean"));
+    std::system("cp -f /data/openpilot/selfdrive/assets/addon/lang/events/ko.txt /data/events_lang.txt");
+  } else {
+    label.setText(QString::fromStdString("English"));
+    std::system("cp -f /data/openpilot/selfdrive/assets/addon/lang/events/en.txt /data/events_lang.txt");
+  }
+}

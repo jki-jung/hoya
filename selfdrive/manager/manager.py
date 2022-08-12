@@ -229,6 +229,7 @@ def manager_init() -> None:
     ("OSMOfflineUse", "0"),
     ("StopAtStopSign", "0"),
     ("VarCruiseSpeedFactor", "0"),
+    ("LanguageSelection", "0"),
    ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))

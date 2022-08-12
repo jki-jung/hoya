@@ -499,6 +499,7 @@ UIPanel::UIPanel(QWidget *parent) : QFrame(parent) {
   layout->addWidget(new HoldForSettingToggle());
   layout->addWidget(new RTShieldToggle());
   layout->addWidget(new OSMOfflineUseToggle());
+  layout->addWidget(new LanguageSelection());
 }
 
 DrivingPanel::DrivingPanel(QWidget *parent) : QFrame(parent) {
