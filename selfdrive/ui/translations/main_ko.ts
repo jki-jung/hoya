@@ -121,7 +121,7 @@
     </message>
 </context>
 <context>
-    <name>QObject</name>
+    <name>Sidebar</name>
     <message>
         <location filename="../qt/sidebar.cc" line="86"/>
         <source>Hold 0.3 sec on the button to enter Setting Menu.</source>
@@ -130,48 +130,59 @@
     <message>
         <location filename="../qt/sidebar.cc" line="101"/>
         <source>NETWORK\nOFFLINE</source>
-        <translation>네트워크\n오프라인</translation>
+        <translation>네트워크
+오프라인</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="103"/>
         <source>NETWORK\nONLINE</source>
-        <translation>네트워크\n온라인</translation>
+        <translation>네트워크
+온라인</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="103"/>
         <source>NETWORK\nERROR</source>
-        <translation>네트워크\n오류</translation>
+        <translation>네트워크
+오류</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="116"/>
         <source>VEHICLE\nONLINE</source>
-        <translation>차량\n연결됨</translation>
+        <translation>차량
+연결됨</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="118"/>
         <source>NO\nPANDA</source>
-        <translation>판다\n연결안됨</translation>
+        <translation>판다
+연결안됨</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="120"/>
         <source>VEHICLE\nOFFROAD</source>
-        <translation>차량\n오프로드</translation>
+        <translation>차량
+오프로드</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="122"/>
         <source>ONLINE\nGPS Search</source>
-        <translation>온라인\nGPS검색중</translation>
+        <translation>온라인
+GPS검색중</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="124"/>
         <source>ONLINE\nSAT : %1</source>
-        <translation>온라인\n위성 : %1</translation>
+        <translation>온라인
+위성 : %1</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="187"/>
         <source>SYS TEMP</source>
         <translation>장치온도</translation>
     </message>
+</context>
+<context>
+    <name>QObject</name>
     <message>
         <location filename="../qt/text.cc" line="55"/>
         <source>Update</source>
