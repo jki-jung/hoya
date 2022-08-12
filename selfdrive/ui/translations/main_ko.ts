@@ -71,7 +71,7 @@
     <message>
         <location filename="../qt/widgets/input.cc" line="407"/>
         <source>Detail</source>
-        <translation>새부사항</translation>
+        <translation>세부사항</translation>
     </message>
 </context>
 <context>
