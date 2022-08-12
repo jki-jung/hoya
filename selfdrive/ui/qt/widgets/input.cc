@@ -361,7 +361,7 @@ UpdateInfoDialog::UpdateInfoDialog(const QString &prompt_text, const QString &co
   QVBoxLayout *main_layout = new QVBoxLayout(container);
   main_layout->setContentsMargins(32, 32, 32, 32);
 
-  QLabel *title = new QLabel("UPDATE", this);
+  QLabel *title = new QLabel(tr("UPDATE"), this);
   title->setAlignment(Qt::AlignHCenter);
   title->setStyleSheet("font-size: 70px; font-weight: bold; color: #AEFF82;");
   main_layout->addWidget(title, 0, Qt::AlignTop | Qt::AlignHCenter);
@@ -404,7 +404,7 @@ UpdateInfoDialog::UpdateInfoDialog(const QString &prompt_text, const QString &co
 }
 
 bool UpdateInfoDialog::confirm(const QString &prompt_text, QWidget *parent) {
-  auto d = UpdateInfoDialog(prompt_text, "Update", "Cancel", "Detail", parent);
+  auto d = UpdateInfoDialog(prompt_text, tr("Update"), tr("Cancel"), tr("Detail"), parent);
   return d.exec();
 }
 
@@ -418,7 +418,7 @@ GitPullCancel::GitPullCancel(const QString &confirm_text, const QString &cancel_
   QVBoxLayout *main_layout = new QVBoxLayout(container);
   main_layout->setContentsMargins(32, 32, 32, 32);
 
-  QLabel *title = new QLabel("Select a commit you want to go back and then press Ok to apply", this);
+  QLabel *title = new QLabel(tr("Select a commit you want to go back and then press Ok to apply"), this);
   title->setStyleSheet("font-size: 50px; font-weight: bold; color: #AEFF82;");
   main_layout->addWidget(title, 0, Qt::AlignTop);
 
@@ -442,7 +442,7 @@ GitPullCancel::GitPullCancel(const QString &confirm_text, const QString &cancel_
       if (num != -1) {
         QString str = listWidget->currentItem()->text();
         QStringList hash = str.split(",");
-        if (ConfirmationDialog::confirm("This will run below command\ngit reset --hard " + hash[0], this)) {
+        if (ConfirmationDialog::confirm(tr("This will run below command\ngit reset --hard ") + hash[0], this)) {
           QString cmd0 = "git reset --hard " + hash[0];
           QProcess::execute("pkill -f thermald");
           QProcess::execute("rm -f /data/openpilot/prebuilt");
@@ -451,7 +451,7 @@ GitPullCancel::GitPullCancel(const QString &confirm_text, const QString &cancel_
           QProcess::execute("reboot");
         }
       } else {
-        ConfirmationDialog::alert("No selection.", this);
+        ConfirmationDialog::alert(tr("No selection."), this);
       }
     });
   }
@@ -468,7 +468,7 @@ GitPullCancel::GitPullCancel(const QString &confirm_text, const QString &cancel_
 }
 
 bool GitPullCancel::confirm(QWidget *parent) {
-  auto d = GitPullCancel("Ok", "Cancel", parent);
+  auto d = GitPullCancel(tr("Ok"), tr("Cancel"), parent);
   return d.exec();
 }
 
