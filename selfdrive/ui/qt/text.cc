@@ -52,10 +52,10 @@ int main(int argc, char *argv[]) {
   label2->setText(device_ip);
   label2->setStyleSheet("color: #e0e879");
   main_layout->addWidget(label2, 0, 0, 1, 4, Qt::AlignRight | Qt::AlignTop);
-  btn->setText("Update");
-  btn2->setText("MixPlorer");
-  btn3->setText("Restore");
-  btn4->setText("Reset");
+  btn->setText(tr("Update"));
+  btn2->setText(tr("MixPlorer"));
+  btn3->setText(tr("Restore"));
+  btn4->setText(tr("Reset"));
   QObject::connect(btn, &QPushButton::clicked, [=]() {
     QProcess::execute("pkill -f thermald");
     QProcess::execute("rm -f /data/openpilot/prebuilt");
@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
   main_layout->addWidget(btn3, 1, 1, 1, 1, Qt::AlignCenter | Qt::AlignBottom);
   main_layout->addWidget(btn4, 1, 2, 1, 1, Qt::AlignCenter | Qt::AlignBottom);
 #else
-  btn->setText("Exit");
+  btn->setText(tr("Exit"));
   QObject::connect(btn, &QPushButton::clicked, &a, &QApplication::quit);
 #endif
   btn->setFixedSize(400, 150);

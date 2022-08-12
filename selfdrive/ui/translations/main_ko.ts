@@ -102,4 +102,137 @@
         <translation>취소</translation>
     </message>
 </context>
+<context>
+    <name>OffroadHome</name>
+    <message>
+        <location filename="../qt/home.cc" line="568"/>
+        <source>UPDATE</source>
+        <translation>업데이트</translation>
+    </message>
+    <message>
+        <location filename="../qt/home.cc" line="659"/>
+        <source>ALERTS</source>
+        <translation>경고</translation>
+    </message>
+    <message>
+        <location filename="../qt/home.cc" line="659"/>
+        <source>ALERT</source>
+        <translation>경고</translation>
+    </message>
+</context>
+<context>
+    <name>Sidebar</name>
+    <message>
+        <location filename="../qt/sidebar.cc" line="86"/>
+        <source>Hold 0.3 sec on the button to enter Setting Menu.</source>
+        <translation>설정메뉴 진입을 위해 0.3초 이상 누르세요.</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="101"/>
+        <source>NETWORK\nOFFLINE</source>
+        <translation>네트워크\n오프라인</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="103"/>
+        <source>NETWORK\nONLINE</source>
+        <translation>네트워크\n온라인</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="103"/>
+        <source>NETWORK\nERROR</source>
+        <translation>네트워크\n오류</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="116"/>
+        <source>VEHICLE\nONLINE</source>
+        <translation>차량\n연결됨</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="118"/>
+        <source>NO\nPANDA</source>
+        <translation>판다\n연결안됨</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="120"/>
+        <source>VEHICLE\nOFFROAD</source>
+        <translation>차량\n오프로드</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="122"/>
+        <source>ONLINE\nGPS Search</source>
+        <translation>온라인\nGPS검색중</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="124"/>
+        <source>ONLINE\nSAT : %1</source>
+        <translation>온라인\nSAT : %1</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="187"/>
+        <source>SYS TEMP</source>
+        <translation>장치온도</translation>
+    </message>
+</context>
+<context>
+    <name>Text</name>
+    <message>
+        <location filename="../qt/text.cc" line="55"/>
+        <source>Update</source>
+        <translation>업데이트</translation>
+    </message>
+    <message>
+        <location filename="../qt/text.cc" line="56"/>
+        <source>MixPlorer</source>
+        <translation>믹스플로러</translation>
+    </message>
+    <message>
+        <location filename="../qt/text.cc" line="57"/>
+        <source>Restore</source>
+        <translation>커밋복구</translation>
+    </message>
+    <message>
+        <location filename="../qt/text.cc" line="58"/>
+        <source>Reset</source>
+        <translation>커밋초기화</translation>
+    </message>
+    <message>
+        <location filename="../qt/text.cc" line="86"/>
+        <source>Exit</source>
+        <translation>종료</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../qt/util.cc" line="20"/>
+        <source>dashcam</source>
+        <translation>대시캠</translation>
+    </message>
+    <message>
+        <location filename="../qt/util.cc" line="20"/>
+        <source>openpilot</source>
+        <translation>오픈파일럿</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qt/util.cc" line="81"/>
+        <source>%n minute(s) ago</source>
+        <translation>
+            <numerusform>%n분 전</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qt/util.cc" line="84"/>
+        <source>%n hour(s) ago</source>
+        <translation>
+            <numerusform>%n시간 전</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../qt/util.cc" line="87"/>
+        <source>%n day(s) ago</source>
+        <translation>
+            <numerusform>%n일 전</numerusform>
+        </translation>
+    </message>
+</context>
 </TS>
