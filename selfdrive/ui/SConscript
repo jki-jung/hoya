@@ -67,7 +67,8 @@ qt_env.Program("_ui", qt_src + [asset_obj], LIBS=qt_libs)
 # build translation files
 translation_sources = Glob("#selfdrive/ui/translations/*.ts", strings=True)
 translation_targets = [src.replace(".ts", ".qm") for src in translation_sources]
-qt_env.Command(translation_targets, translation_sources, f"#third_party/qt5/aarch64/bin/lrelease $SOURCES")
+lrelease = 'third_party/qt5/larch64/bin/lrelease' if arch == 'larch64' else 'third_party/qt5/aarch64/bin/lrelease'
+qt_env.Command(translation_targets, translation_sources, f"{lrelease} $SOURCES")
 
 
 
