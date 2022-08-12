@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QSslConfiguration>
+#include <QTranslator>
 
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/qt/qt_window.h"
@@ -18,9 +19,16 @@ int main(int argc, char *argv[]) {
     QSslConfiguration ssl = QSslConfiguration::defaultConfiguration();
     ssl.setCaCertificates(QSslCertificate::fromPath("/usr/etc/tls/cert.pem"));
     QSslConfiguration::setDefaultConfiguration(ssl);
+
+  QTranslator translator;
+  QString translation_file = QString::fromStdString(Params().get("LanguageSetting"));
+  if (!translator.load(translation_file, "translations") && translation_file.length()) {
+    qCritical() << "Failed to load translation file:" << translation_file;
   }
 
   QApplication a(argc, argv);
+  a.installTranslator(&translator);
+
   MainWindow w;
   setMainWindow(&w);
   a.installEventFilter(&w);
