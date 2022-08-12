@@ -79,7 +79,7 @@
     <message>
         <location filename="../qt/widgets/input.cc" line="421"/>
         <source>Select a commit you want to go back and then press Ok to apply</source>
-        <translation>다음 명령어를 실행합니다: git reset --hard </translation>
+        <translation>돌아가고자 하는 커밋번호를 선택 후 확인을 누르세요</translation>
     </message>
     <message>
         <location filename="../qt/widgets/input.cc" line="445"/>
