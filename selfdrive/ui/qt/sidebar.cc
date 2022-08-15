@@ -108,7 +108,7 @@ void Sidebar::updateState(const UIState &s) {
 
   ItemStatus pandaStatus = {{tr("VEHICLE"), tr("ONLINE")}, good_color};
   if (s.scene.pandaType == cereal::PandaState::PandaType::UNKNOWN) {
-    pandaStatus = {{tr("NO"), tr("PANDA")}, danger_color};
+    pandaStatus = {{tr("PANDA"), tr("OFFLINE")}, danger_color};
   } else if (!s.scene.ignition) {
   	pandaStatus = {{tr("VEHICLE"), tr("OFFROAD")}, warning_color};
   } else if (s.scene.started && s.scene.gpsAccuracyUblox != 0.00 && (s.scene.gpsAccuracyUblox > 99 || s.scene.gpsAccuracyUblox == 0)) {

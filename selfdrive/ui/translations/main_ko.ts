@@ -135,6 +135,7 @@
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="94"/>
+        <location filename="../qt/sidebar.cc" line="111"/>
         <source>OFFLINE</source>
         <translation>오프라인</translation>
     </message>
@@ -169,9 +170,14 @@
         <translation>양호</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="103"/>
+        <location filename="../qt/sidebar.cc" line="96"/>
         <source>ERROR</source>
         <translation>오류</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="111"/>
+        <source>PANDA</source>
+        <translation>판다</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="109"/>
