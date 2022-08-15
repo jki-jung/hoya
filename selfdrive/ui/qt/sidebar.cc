@@ -9,13 +9,13 @@
 #include <QSoundEffect>
 #include <QDateTime>
 
-void Sidebar::drawMetric(QPainter &p, const QPair<QString, QString> &label, QColor c, int y) {
-  const QRect rect = {30, y, 240, 126};
+void Sidebar::drawMetric(QPainter &p, const QString &label, const QString &val, QColor c, int y) {
+  const QRect rect = {30, y, 240, val.isEmpty() ? 100 : 148};
 
   p.setPen(Qt::NoPen);
   p.setBrush(QBrush(c));
-  p.setClipRect(rect.x() + 4, rect.y(), 18, rect.height(), Qt::ClipOperation::ReplaceClip);
-  p.drawRoundedRect(QRect(rect.x() + 4, rect.y() + 4, 100, 118), 18, 18);
+  p.setClipRect(rect.x() + 6, rect.y(), 18, rect.height(), Qt::ClipOperation::ReplaceClip);
+  p.drawRoundedRect(QRect(rect.x() + 6, rect.y() + 6, 100, rect.height() - 12), 10, 10);
   p.setClipping(false);
 
   QPen pen = QPen(QColor(0xff, 0xff, 0xff, 0x55));
@@ -25,16 +25,16 @@ void Sidebar::drawMetric(QPainter &p, const QPair<QString, QString> &label, QCol
   p.drawRoundedRect(rect, 20, 20);
 
   p.setPen(QColor(0xff, 0xff, 0xff));
-  configFont(p, "Inter", 35, "SemiBold");
-
-  QRect label_rect = getTextRect(p, Qt::AlignCenter, label.first);
-  label_rect.setWidth(218);
-  label_rect.moveLeft(rect.left() + 22);
-  label_rect.moveTop(rect.top() + 19);
-  p.drawText(label_rect, Qt::AlignCenter, label.first);
-
-  label_rect.moveTop(rect.top() + 65);
-  p.drawText(label_rect, Qt::AlignCenter, label.second);
+  if (val.isEmpty()) {
+    configFont(p, "Open Sans", 35, "Bold");
+    const QRect r = QRect(rect.x() + 30, rect.y(), rect.width() - 40, rect.height());
+    p.drawText(r, Qt::AlignCenter, label);
+  } else {
+    configFont(p, "Open Sans", 58, "Bold");
+    p.drawText(rect.x() + 50, rect.y() + 71, val);
+    configFont(p, "Open Sans", 35, "Regular");
+    p.drawText(rect.x() + 50, rect.y() + 50 + 77, label);
+  }
 }
 
 Sidebar::Sidebar(QWidget *parent) : QFrame(parent) {
@@ -184,9 +184,9 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   }
 
   // metrics
-  drawMetric(p, temp_status.first, temp_status.second, 400);
-  drawMetric(p, panda_status.first, panda_status.second, 558);
-  drawMetric(p, connect_status.first, connect_status.second, 716);
+  drawMetric(p, "SYS TEMP", temp_status.first, temp_status.second, 400);
+  drawMetric(p, panda_status.first, "", panda_status.second, 558);
+  drawMetric(p, connect_status.first, "", connect_status.second, 716);
 
   // atom - ip
   const QRect r2 = QRect(35, 295, 230, 50);
