@@ -123,28 +123,50 @@
 <context>
     <name>Sidebar</name>
     <message>
-        <location filename="../qt/sidebar.cc" line="86"/>
+        <location filename="../qt/sidebar.cc" line="79"/>
         <source>Hold 0.3 sec on the button to enter Setting Menu.</source>
         <translation>설정메뉴 진입을 위해 0.3초 이상 누르세요.</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="101"/>
-        <location filename="../qt/sidebar.cc" line="103"/>
+        <location filename="../qt/sidebar.cc" line="94"/>
+        <location filename="../qt/sidebar.cc" line="96"/>
         <source>NETWORK</source>
         <translation>네트워크</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="101"/>
+        <location filename="../qt/sidebar.cc" line="94"/>
         <source>OFFLINE</source>
         <translation>오프라인</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="103"/>
-        <location filename="../qt/sidebar.cc" line="116"/>
-        <location filename="../qt/sidebar.cc" line="122"/>
-        <location filename="../qt/sidebar.cc" line="124"/>
+        <location filename="../qt/sidebar.cc" line="96"/>
+        <location filename="../qt/sidebar.cc" line="109"/>
+        <location filename="../qt/sidebar.cc" line="115"/>
+        <location filename="../qt/sidebar.cc" line="117"/>
         <source>ONLINE</source>
         <translation>온라인</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="100"/>
+        <location filename="../qt/sidebar.cc" line="103"/>
+        <location filename="../qt/sidebar.cc" line="105"/>
+        <source>TEMP</source>
+        <translation>장치온도</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="100"/>
+        <source>HIGH</source>
+        <translation>높음</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="103"/>
+        <source>GOOD</source>
+        <translation>좋음</translation>
+    </message>
+    <message>
+        <location filename="../qt/sidebar.cc" line="105"/>
+        <source>OK</source>
+        <translation>양호</translation>
     </message>
     <message>
         <location filename="../qt/sidebar.cc" line="103"/>
@@ -152,30 +174,25 @@
         <translation>오류</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="116"/>
-        <location filename="../qt/sidebar.cc" line="120"/>
+        <location filename="../qt/sidebar.cc" line="109"/>
+        <location filename="../qt/sidebar.cc" line="113"/>
         <source>VEHICLE</source>
         <translation>차량</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="120"/>
+        <location filename="../qt/sidebar.cc" line="113"/>
         <source>OFFROAD</source>
         <translation>오프로드</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="122"/>
+        <location filename="../qt/sidebar.cc" line="115"/>
         <source>GPS Search</source>
         <translation>GPS검색중</translation>
     </message>
     <message>
-        <location filename="../qt/sidebar.cc" line="124"/>
+        <location filename="../qt/sidebar.cc" line="117"/>
         <source>SAT : </source>
         <translation>위성: </translation>
-    </message>
-    <message>
-        <location filename="../qt/sidebar.cc" line="187"/>
-        <source>SYS TEMP</source>
-        <translation>장치온도</translation>
     </message>
 </context>
 <context>
