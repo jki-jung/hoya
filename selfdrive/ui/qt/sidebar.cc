@@ -9,8 +9,8 @@
 #include <QSoundEffect>
 #include <QDateTime>
 
-void Sidebar::drawMetric(QPainter &p, const QString &label, const QString &val, QColor c, int y) {
-  const QRect rect = {30, y, 240, val.isEmpty() ? 100 : 148};
+void Sidebar::drawMetric(QPainter &p, const QPair<QString, QString> &label, QColor c, int y) {
+  const QRect rect = {30, y, 240, 124};
 
   p.setPen(Qt::NoPen);
   p.setBrush(QBrush(c));
@@ -25,16 +25,9 @@ void Sidebar::drawMetric(QPainter &p, const QString &label, const QString &val, 
   p.drawRoundedRect(rect, 20, 20);
 
   p.setPen(QColor(0xff, 0xff, 0xff));
-  if (val.isEmpty()) {
-    configFont(p, "Open Sans", 35, "Bold");
-    const QRect r = QRect(rect.x() + 30, rect.y(), rect.width() - 40, rect.height());
-    p.drawText(r, Qt::AlignCenter, label);
-  } else {
-    configFont(p, "Open Sans", 58, "Bold");
-    p.drawText(rect.x() + 50, rect.y() + 71, val);
-    configFont(p, "Open Sans", 35, "Regular");
-    p.drawText(rect.x() + 50, rect.y() + 50 + 77, label);
-  }
+  configFont(p, "Open Sans", 35, "Bold");
+  p.drawText(rect.x() + 50, rect.y() + 71, label.first);
+  p.drawText(rect.x() + 50, rect.y() + 50 + 77, label.second);
 }
 
 Sidebar::Sidebar(QWidget *parent) : QFrame(parent) {
@@ -184,9 +177,9 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   }
 
   // metrics
-  drawMetric(p, temp_status.first, temp_status.second, temp_status.third, 400);
-  drawMetric(p, panda_status.first, panda_status.second, panda_status.third, 558);
-  drawMetric(p, connect_status.first, connect_status.second, connect_status.third, 716);
+  drawMetric(p, temp_status.first, temp_status.second, 400);
+  drawMetric(p, panda_status.first, panda_status.second, 558);
+  drawMetric(p, connect_status.first, connect_status.second, 716);
 
   // atom - ip
   const QRect r2 = QRect(35, 295, 230, 50);
