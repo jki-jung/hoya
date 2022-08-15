@@ -26,8 +26,8 @@ void Sidebar::drawMetric(QPainter &p, const QPair<QString, QString> &label, QCol
 
   p.setPen(QColor(0xff, 0xff, 0xff));
   configFont(p, "Open Sans", 35, "Bold");
-  p.drawText(rect.x(), rect.top(), rect.width(), rect.height(), Qt::AlignCenter, label.first);
-  p.drawText(rect.x(), rect.top() + 46, rect.width(), rect.height(), Qt::AlignCenter, label.second);
+  p.drawText(rect.x() + 10, rect.top() - 23, rect.width(), rect.height(), Qt::AlignCenter, label.first);
+  p.drawText(rect.x() + 10, rect.top() + 23, rect.width(), rect.height(), Qt::AlignCenter, label.second);
 }
 
 Sidebar::Sidebar(QWidget *parent) : QFrame(parent) {
