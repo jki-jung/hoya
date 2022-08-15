@@ -184,9 +184,9 @@ void Sidebar::paintEvent(QPaintEvent *event) {
   }
 
   // metrics
-  drawMetric(p, temp_status.first, temp_status.second, 400);
-  drawMetric(p, panda_status.first, panda_status.second, 558);
-  drawMetric(p, connect_status.first, connect_status.second, 716);
+  drawMetric(p, temp_status.first, temp_status.second, temp_status.third, 400);
+  drawMetric(p, panda_status.first, panda_status.second, panda_status.third, 558);
+  drawMetric(p, connect_status.first, connect_status.second, connect_status.third, 716);
 
   // atom - ip
   const QRect r2 = QRect(35, 295, 230, 50);
