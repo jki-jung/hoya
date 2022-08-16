@@ -1142,7 +1142,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="442"/>
         <source> The ID does not exist. Return to the input window, press the cancel button, and try again from the beginning.</source>
-        <translation>ID가 존재하지 않습니다. 입력 창으로 돌아가서 취소 버튼을 누른 다음 처음부터 다시 시도하십시오.</translation>
+        <translation> ID가 존재하지 않습니다. 입력 창으로 돌아가서 취소 버튼을 누른 다음 처음부터 다시 시도하십시오.</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="446"/>
@@ -1157,7 +1157,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="465"/>
         <source> The repository does not exist. Return to the input window, press the cancel button, and try again from the beginning.</source>
-        <translation>리포지토리가 없습니다. 입력 창으로 돌아가서 취소 버튼을 누른 다음 처음부터 다시 시도하십시오.</translation>
+        <translation> 리포지토리가 없습니다. 입력 창으로 돌아가서 취소 버튼을 누른 다음 처음부터 다시 시도하십시오.</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="471"/>
@@ -1167,7 +1167,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="488"/>
         <source> The branch does not exist. Press the cancel button and try again from the beginning.</source>
-        <translation>브랜치가 존재하지 않습니다. 취소 버튼을 누르고 처음부터 다시 시도하십시오.</translation>
+        <translation> 브랜치가 존재하지 않습니다. 취소 버튼을 누르고 처음부터 다시 시도하십시오.</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="494"/>
@@ -1217,7 +1217,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="655"/>
         <source>Press OK to set your car as</source>
-        <translation>[확인]를 눌러 차량을 다음과 같이 설정합니다.</translation>
+        <translation>[확인]을 눌러 차량을 다음과 같이 설정합니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="676"/>
@@ -1247,7 +1247,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="742"/>
         <source>Your branch is already</source>
-        <translation>이미 해당 브랜치입니다.</translation>
+        <translation>이미 해당 브랜치입니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="779"/>
@@ -1267,7 +1267,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="851"/>
         <source>Press OK to set your timezone as</source>
-        <translation>시간대를 다음과 같이 설정하려면 [확인]을 누르십시오.</translation>
+        <translation>시간대를 다음과 같이 설정하려면 [확인]을 누르십시오</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="874"/>
@@ -1532,7 +1532,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="1814"/>
         <source>Set the cruise start mode. OP mode/dist+curve/dist only/curve only/one-way 1 lane/safetycam deceleration Only. op mode:no button speed control, dist+curve:use button speed control in the inter-vehicle distance and curve section, dist only:curve only:curve one-way speed only, one-way speed control</source>
-        <translation>크루즈 시작 모드를 설정합니다. OP 기본/차간+커브/차간거리/커브/편도1차/안전구간 감속. OP 기본: 버튼 속도 제어 없음, 차간+커브: 차간 거리와 커브 구간에서 버튼 속도 제어 사용, 차간거리:차간거리에만 버튼속도제어 사용, 커브:커브 구간에서만 버튼속도 제어 사용, 편도1차: 차간+커브 버튼속도제어 및 차량을 우측으로 치우치게 설정, 안전구간 감속: 안전구간에서만 버튼 속도조절 사용.</translation>
+        <translation>크루즈 시작 모드를 설정합니다. OP 기본/차간+커브/차간거리/커브/편도1차/안전구간 감속. OP 기본: 버튼 속도 제어 없음, 차간+커브: 차간 거리와 커브 구간에서 버튼 속도 제어 사용, 차간거리:차간거리에만 버튼속도제어 사용, 커브:커브 구간에서만 버튼속도 제어 사용, 편도1차: 차간+커브 버튼속도제어 및 차량을 우측으로 치우치게 설정, 안전구간 감속: 안전구간에서만 버튼 속도조절 사용</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="1872"/>
@@ -1627,7 +1627,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="2022"/>
         <source>Adjust the position of the vehicle in the curve section. (-value: move the car to the left, +value: move the car to the right)</source>
-        <translation>커브 구간에서 차량의 위치를 조정합니다(-값: 차량을 왼쪽으로 이동, +값: 차량을 오른쪽으로 이동).</translation>
+        <translation>커브 구간에서 차량의 위치를 조정합니다(-값: 차량을 왼쪽으로 이동, +값: 차량을 오른쪽으로 이동)</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="2081"/>
@@ -1662,7 +1662,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="2295"/>
         <source>Sets the auto RES option. 1. Adjust the temporary cruise speed, 2. Adjust the set speed itself according to the presence or absence of a preceding car. 3. Adjust the cruise speed if there is a preceding car, and adjust the set speed if there is no preceding car. Please note that the automatic RES may not work well depending on the conditions.</source>
-        <translation>자동 RES 옵션을 설정합니다. 1. 크루즈속도조정: 설정속도는 그대로 두고 크루즈 속도만 조금 높게 재 설정합니다., 2. 설정속도조정: 설정(MAX)속도를 현재속도로 조정하여 설정합니다., 3. 자동(선행차): 선행차가 있으면 크루즈속도를 조정하고, 선행차가 없으면 설정속도를 조정합니다. 조건에 따라 자동 RES가 잘 작동하지 않을 수 있으니 참고해주세요.(ex. 커브 구간에서는 동작하지 않음)</translation>
+        <translation>자동 RES 옵션을 설정합니다. 1. 크루즈속도조정: 설정속도는 그대로 두고 크루즈 속도만 조금 높게 재 설정합니다., 2. 설정속도조정: 설정(MAX)속도를 현재속도로 조정하여 설정합니다., 3. 자동(선행차): 선행차가 있으면 크루즈속도를 조정하고, 선행차가 없으면 설정속도를 조정합니다. 조건에 따라 자동 RES가 잘 작동하지 않을 수 있으니 참고해주세요.(ex. 커브 구간에서는 동작하지 않음).</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="2353"/>
@@ -1687,7 +1687,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="2361"/>
         <source>Sets the automatic RES condition. When the brake is released/operated when the accelerator pedal is operated.</source>
-        <translation>자동RES 조건을 설정합니다. 가속페달조작시 / 브레이크해제시</translation>
+        <translation>자동RES 조건을 설정합니다. 가속페달조작시 / 브레이크해제시.</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="2419"/>
@@ -1762,7 +1762,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="2679"/>
         <source>Modify the panda RT_DELTA value. Press the Run button below to apply. It might be 7(DeltaDown)X16=112?</source>
-        <translation>판다 RT_DELTA 값을 수정합니다. 아래 실행 버튼을 눌러 적용하십시오. 7(DeltaDown)X16=112일 수 있습니다.</translation>
+        <translation>판다 RT_DELTA 값을 수정합니다. 아래 실행 버튼을 눌러 적용하십시오. 7(DeltaDown)X16=112?</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="2738"/>
@@ -1867,32 +1867,32 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="3512"/>
         <source>The value cannot exceed SteerMax</source>
-        <translation>값은 SteerMax를 초과할 수 없습니다.</translation>
+        <translation>값은 SteerMax를 초과할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="3529"/>
         <source>The value cannot be less than SteerMaxBase</source>
-        <translation>값은 SteerMaxBase보다 작을 수 없습니다.</translation>
+        <translation>값은 SteerMaxBase보다 작을 수 없습니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="3642"/>
         <source>The value cannot exceed maximum DeltaUp value</source>
-        <translation>값은 최대 DeltaUp값을 초과할 수 없습니다.</translation>
+        <translation>값은 최대 DeltaUp값을 초과할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="3659"/>
         <source>The value cannot be less than DeltaUp default value</source>
-        <translation>값은 DeltaUp 기본값보다 작을 수 없습니다.</translation>
+        <translation>값은 DeltaUp 기본값보다 작을 수 없습니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="3772"/>
         <source>The value cannot exceed maximum DeltaDown value</source>
-        <translation>값은 최대 DeltaDown 값을 초과할 수 없습니다.</translation>
+        <translation>값은 최대 DeltaDown 값을 초과할 수 없습니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="3789"/>
         <source>The value cannot be less than DeltaDown default value</source>
-        <translation>값은 DeltaDown 기본값보다 작을 수 없습니다.</translation>
+        <translation>값은 DeltaDown 기본값보다 작을 수 없습니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="3821"/>
@@ -2117,7 +2117,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="5698"/>
         <source>Values are kph or mph</source>
-        <translation>값은 kph 또는 mph입니다.</translation>
+        <translation>값은 kph 또는 mph입니다</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="5708"/>
@@ -2252,12 +2252,12 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="6086"/>
         <source>Your Input is</source>
-        <translation>입력 내용:</translation>
+        <translation>입력 내용</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="6086"/>
         <source>Press OK to apply and reboot</source>
-        <translation>적용하려면 [확인]을 누르십시오.</translation>
+        <translation>적용하려면 [확인]을 누르십시오</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="6097"/>
@@ -2447,7 +2447,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="6875"/>
         <source>Set LaneWidths by speed. Speed is m/s values not kph or mph. (Mid range is interpolation values)</source>
-        <translation>속도를 기준으로 차선 폭을 설정합니다. 속도는 kph 또는 mph가 아닌 m/s 값입니다(중간 범위는 보간 값입니다).</translation>
+        <translation>속도를 기준으로 차선 폭을 설정합니다. 속도는 kph 또는 mph가 아닌 m/s 값입니다(중간 범위는 보간 값입니다)</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="6910"/>
@@ -2517,12 +2517,12 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="7032"/>
         <source>LeftEdge: </source>
-        <translation>좌측엣지:</translation>
+        <translation>좌측엣지: </translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="7059"/>
         <source>RightEdge: </source>
-        <translation>우측엣지:</translation>
+        <translation>우측엣지: </translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="7159"/>
@@ -2572,7 +2572,7 @@
     <message>
         <location filename="../qt/widgets/opkr.cc" line="7450"/>
         <source>Multiple Lateral Tune by Speed/Angle.</source>
-        <translation>속도/각도별 멀티 조향 튜닝</translation>
+        <translation>속도/각도별 멀티 조향 튜닝.</translation>
     </message>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="8008"/>
