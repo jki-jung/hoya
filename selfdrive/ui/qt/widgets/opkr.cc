@@ -3639,7 +3639,7 @@ SteerDeltaUp::SteerDeltaUp() : AbstractControl("", "", "") {
     value = value + 1;
     if (value > value1) {
       value = value1;
-      ConfirmationDialog::alert(tr("The value cannot exceed maximum DeltaUp value)" + "(" + str1 + ")", this);
+      ConfirmationDialog::alert(tr("The value cannot exceed maximum DeltaUp value") + "(" + str1 + ")", this);
     } else if (value >= 7) {
       value = 7;
     }
@@ -3786,7 +3786,7 @@ SteerDeltaDown::SteerDeltaDown() : AbstractControl("", "", "") {
     value = value - 1;
     if (value < value1) {
       value = value1;
-      ConfirmationDialog::alert(tr("The value cannot be less than DeltaDown default value" + "(" + str1 + ")", this);
+      ConfirmationDialog::alert(tr("The value cannot be less than DeltaDown default value") + "(" + str1 + ")", this);
     } else if (value <= 7) {
       value = 7;
     }
