@@ -953,7 +953,15 @@
     </message>
 </context>
 <context>
-    <name>OPKR</name>
+    <name>OpenpilotView</name>
+    <message>
+        <location filename="../qt/widgets/opkr.cc" line="524"/>
+        <source>Driving Camera</source>
+        <translation>드라이빙 카메라</translation>
+    </message>
+</context>
+<context>
+    <name>CLateralControlGroup</name>
     <message>
         <location filename="../qt/widgets/opkr.cc" line="24"/>
         <source>Lateral Control(Reboot)</source>
