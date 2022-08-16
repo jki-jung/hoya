@@ -368,7 +368,7 @@ SwitchOpenpilot::SwitchOpenpilot() : ButtonControl(tr("Change Repo/Branch"), "",
           if (branchid.length() > 0) {
             getBranchID(branchid);
             githubbranch = branchid;
-            QString cmd0 = QString::fromStdString(tr("This will download the branch and takes a little time.")) + "\n" + QString::fromStdString("https://github.com/") + githubid + QString::fromStdString("/") + githubrepo + QString::fromStdString(".git\n") + QString::fromStdString(tr("Branch: ")) + githubbranch;
+            QString cmd0 = tr("This will download the branch and takes a little time.") + "\n" + QString::fromStdString("https://github.com/") + githubid + QString::fromStdString("/") + githubrepo + QString::fromStdString(".git\n") + tr("Branch: ") + githubbranch;
             if (ConfirmationDialog::confirm(cmd0, this)) {
               setText(tr("DONE"));
               setEnabled(true);
@@ -929,27 +929,27 @@ AutoShutdown::AutoShutdown() : AbstractControl(tr("EON AutoShutdown"), tr("EON i
 void AutoShutdown::refresh() {
   QString option = QString::fromStdString(params.get("OpkrAutoShutdown"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("AlwaysOn")));
+    label.setText(tr("AlwaysOn"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("RightOff")));
+    label.setText(tr("RightOff"));
   } else if (option == "2") {
-    label.setText(QString::fromStdString(tr("30sec")));
+    label.setText(tr("30sec"));
   } else if (option == "3") {
-    label.setText(QString::fromStdString(tr("1min")));
+    label.setText(tr("1min"));
   } else if (option == "4") {
-    label.setText(QString::fromStdString(tr("3mins")));
+    label.setText(tr("3mins"));
   } else if (option == "5") {
-    label.setText(QString::fromStdString(tr("5mins")));
+    label.setText(tr("5mins"));
   } else if (option == "6") {
-    label.setText(QString::fromStdString(tr("10mins")));
+    label.setText(tr("10mins"));
   } else if (option == "7") {
-    label.setText(QString::fromStdString(tr("30mins")));
+    label.setText(tr("30mins"));
   } else if (option == "8") {
-    label.setText(QString::fromStdString(tr("1hour")));
+    label.setText(tr("1hour"));
   } else if (option == "9") {
-    label.setText(QString::fromStdString(tr("3hours")));
+    label.setText(tr("3hours"));
   } else if (option == "10") {
-    label.setText(QString::fromStdString(tr("5hours")));
+    label.setText(tr("5hours"));
   }
 }
 
@@ -1011,17 +1011,17 @@ ForceShutdown::ForceShutdown() : AbstractControl(tr("EON ForceShutdown"), tr("If
 void ForceShutdown::refresh() {
   QString option = QString::fromStdString(params.get("OpkrForceShutdown"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("AlwaysOn")));
+    label.setText(tr("AlwaysOn"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("1min")));
+    label.setText(tr("1min"));
   } else if (option == "2") {
-    label.setText(QString::fromStdString(tr("3mins")));
+    label.setText(tr("3mins"));
   } else if (option == "3") {
-    label.setText(QString::fromStdString(tr("5mins")));
+    label.setText(tr("5mins"));
   } else if (option == "4") {
-    label.setText(QString::fromStdString(tr("10mins")));
+    label.setText(tr("10mins"));
   } else if (option == "5") {
-    label.setText(QString::fromStdString(tr("30mins")));
+    label.setText(tr("30mins"));
   }
 }
 
@@ -1089,9 +1089,9 @@ VolumeControl::VolumeControl() : AbstractControl(tr("EON Volume Control(%)"), tr
 void VolumeControl::refresh() {
   QString option = QString::fromStdString(params.get("OpkrUIVolumeBoost"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Default")));
+    label.setText(tr("Default"));
   } else if (option == "-5") {
-    label.setText(QString::fromStdString(tr("Mute")));
+    label.setText(tr("Mute"));
   } else {
     label.setText(QString::fromStdString(params.get("OpkrUIVolumeBoost")));
   }
@@ -1168,7 +1168,7 @@ BrightnessControl::BrightnessControl() : AbstractControl(tr("EON Brightness Cont
 void BrightnessControl::refresh() {
   QString option = QString::fromStdString(params.get("OpkrUIBrightness"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Auto")));
+    label.setText(tr("Auto"));
   } else {
     label.setText(QString::fromStdString(params.get("OpkrUIBrightness")));
   }
@@ -1234,7 +1234,7 @@ BrightnessOffControl::BrightnessOffControl() : AbstractControl(tr("Brightness at
 void BrightnessOffControl::refresh() {
   QString option = QString::fromStdString(params.get("OpkrUIBrightnessOff"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Dark")));
+    label.setText(tr("Dark"));
   } else {
     label.setText(QString::fromStdString(params.get("OpkrUIBrightnessOff")));
   }
@@ -1302,11 +1302,11 @@ void AutoScreenOff::refresh()
 {
   QString option = QString::fromStdString(params.get("OpkrAutoScreenOff"));
   if (option == "-2") {
-    label.setText(QString::fromStdString(tr("AlwaysOn")));
+    label.setText(tr("AlwaysOn"));
   } else if (option == "-1") {
-    label.setText(QString::fromStdString(tr("15secs")));
+    label.setText(tr("15secs"));
   } else if (option == "0") {
-    label.setText(QString::fromStdString(tr("30secs")));
+    label.setText(tr("30secs"));
   } else {
     label.setText(QString::fromStdString(params.get("OpkrAutoScreenOff")) + tr("min(s)"));
   }
@@ -1547,13 +1547,13 @@ RecordQuality::RecordQuality() : AbstractControl(tr("Recording Quality"), tr("Se
 void RecordQuality::refresh() {
   QString option = QString::fromStdString(params.get("RecordingQuality"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Low")));
+    label.setText(tr("Low"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("Mid")));
+    label.setText(tr("Mid"));
   } else if (option == "2") {
-    label.setText(QString::fromStdString(tr("High")));
+    label.setText(tr("High"));
   } else {
-    label.setText(QString::fromStdString(tr("U-High")));
+    label.setText(tr("U-High"));
   }
 }
 
@@ -1615,9 +1615,9 @@ MonitoringMode::MonitoringMode() : AbstractControl(tr("Driver Monitoring Mode"),
 void MonitoringMode::refresh() {
   QString option = QString::fromStdString(params.get("OpkrMonitoringMode"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Default")));
+    label.setText(tr("Default"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("UnSleep")));
+    label.setText(tr("UnSleep"));
   }
 }
 
@@ -1869,17 +1869,17 @@ CruisemodeSelInit::CruisemodeSelInit() : AbstractControl(tr("Cruise Start Mode")
 void CruisemodeSelInit::refresh() {
   QString option = QString::fromStdString(params.get("CruiseStatemodeSelInit"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("OP Stock")));
+    label.setText(tr("OP Stock"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("Dist+Curv")));
+    label.setText(tr("Dist+Curv"));
   } else if (option == "2") {
-    label.setText(QString::fromStdString(tr("DistOnly")));
+    label.setText(tr("DistOnly"));
   } else if (option == "3") {
-    label.setText(QString::fromStdString(tr("CurvOnly")));
+    label.setText(tr("CurvOnly"));
   } else if (option == "4") {
-    label.setText(QString::fromStdString(tr("OneWay")));
+    label.setText(tr("OneWay"));
   } else {
-    label.setText(QString::fromStdString(tr("CamOnly")));
+    label.setText(tr("CamOnly"));
   }
 }
 
@@ -1941,7 +1941,7 @@ LaneChangeSpeed::LaneChangeSpeed() : AbstractControl(tr("LaneChange On/Off/Spd")
 void LaneChangeSpeed::refresh() {
   QString option = QString::fromStdString(params.get("OpkrLaneChangeSpeed"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Off")));
+    label.setText(tr("Off"));
   } else {
     label.setText(QString::fromStdString(params.get("OpkrLaneChangeSpeed")));
   }
@@ -2005,17 +2005,17 @@ LaneChangeDelay::LaneChangeDelay() : AbstractControl(tr("LaneChange Delay"), tr(
 void LaneChangeDelay::refresh() {
   QString option = QString::fromStdString(params.get("OpkrAutoLaneChangeDelay"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Nudge")));
+    label.setText(tr("Nudge"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("RightNow")));
+    label.setText(tr("RightNow"));
   } else if (option == "2") {
-    label.setText(QString::fromStdString(tr("0.5sec")));
+    label.setText(tr("0.5sec"));
   } else if (option == "3") {
-    label.setText(QString::fromStdString(tr("1sec")));
+    label.setText(tr("1sec"));
   } else if (option == "4") {
-    label.setText(QString::fromStdString(tr("1.5sec")));
+    label.setText(tr("1.5sec"));
   } else {
-    label.setText(QString::fromStdString(tr("2secs")));
+    label.setText(tr("2secs"));
   }
 }
 
@@ -2350,11 +2350,11 @@ RESChoice::RESChoice() : AbstractControl(tr("AutoRES Option"), tr("Sets the auto
 void RESChoice::refresh() {
   QString option = QString::fromStdString(params.get("AutoResOption"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("CruiseSet")));
+    label.setText(tr("CruiseSet"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("MaxSpeedSet")));
+    label.setText(tr("MaxSpeedSet"));
   } else {
-    label.setText(QString::fromStdString(tr("AUTO(LeadCar)")));
+    label.setText(tr("AUTO(LeadCar)"));
   }
 }
 
@@ -2416,9 +2416,9 @@ AutoResCondition::AutoResCondition() : AbstractControl(tr("AutoRES Condition"), 
 void AutoResCondition::refresh() {
   QString option = QString::fromStdString(params.get("AutoResCondition"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("RelBrake")));
+    label.setText(tr("RelBrake"));
   } else {
-    label.setText(QString::fromStdString(tr("OnGas")));
+    label.setText(tr("OnGas"));
   }
 }
 
@@ -2478,7 +2478,7 @@ AutoResLimitTime::AutoResLimitTime() : AbstractControl(tr("AutoRES Allow(sec)"),
 void AutoResLimitTime::refresh() {
   QString option = QString::fromStdString(params.get("AutoResLimitTime"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("NoLimit")));
+    label.setText(tr("NoLimit"));
   } else {
     label.setText(QString::fromStdString(params.get("AutoResLimitTime")));
   }
@@ -2542,9 +2542,9 @@ AutoEnableSpeed::AutoEnableSpeed() : AbstractControl(tr("Auto Engage Spd(kph)"),
 void AutoEnableSpeed::refresh() {
   QString option = QString::fromStdString(params.get("AutoEnableSpeed"));
   if (option == "-3") {
-    label.setText(QString::fromStdString(tr("atDGear")));
+    label.setText(tr("atDGear"));
   } else if (option == "0") {
-    label.setText(QString::fromStdString(tr("atDepart")));
+    label.setText(tr("atDepart"));
   } else {
     label.setText(QString::fromStdString(params.get("AutoEnableSpeed")));
   }
@@ -2608,7 +2608,7 @@ CamDecelDistAdd::CamDecelDistAdd() : AbstractControl(tr("SafetyCamDist Adj(%)"),
 void CamDecelDistAdd::refresh() {
   QString option = QString::fromStdString(params.get("SafetyCamDecelDistGain"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Default")));
+    label.setText(tr("Default"));
   } else {
     label.setText(QString::fromStdString(params.get("SafetyCamDecelDistGain")));
   }
@@ -5307,7 +5307,7 @@ DynamicTRGap::DynamicTRGap() : AbstractControl(tr("Use DynamicTR"), tr("Use Dyna
 void DynamicTRGap::refresh() {
   QString option = QString::fromStdString(params.get("DynamicTRGap"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("UnUse")));
+    label.setText(tr("UnUse"));
   } else if (option == "1") {
     label.setText(QString::fromStdString("■"));
   } else if (option == "2") {
@@ -5652,7 +5652,7 @@ LiveSRPercent::LiveSRPercent() : AbstractControl(tr("LiveSR Adjust(%)"), tr("Whe
 void LiveSRPercent::refresh() {
   QString option = QString::fromStdString(params.get("LiveSteerRatioPercent"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Default")));
+    label.setText(tr("Default"));
   } else {
     label.setText(QString::fromStdString(params.get("LiveSteerRatioPercent")));
   }
@@ -5858,11 +5858,11 @@ GetOffAlert::GetOffAlert() : AbstractControl(tr("EON Detach Alert Sound"), tr("D
 void GetOffAlert::refresh() {
   QString option = QString::fromStdString(params.get("OpkrEnableGetoffAlert"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("None")));
+    label.setText(tr("None"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("KOR")));
+    label.setText(tr("KOR"));
   } else {
-    label.setText(QString::fromStdString(tr("ENG")));
+    label.setText(tr("ENG"));
   }
 }
 
@@ -5924,11 +5924,11 @@ OPKRNaviSelect::OPKRNaviSelect() : AbstractControl(tr("Navigation Select"), tr("
 void OPKRNaviSelect::refresh() {
   QString option = QString::fromStdString(params.get("OPKRNaviSelect"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Mappy")));
+    label.setText(tr("Mappy"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("Waze")));
+    label.setText(tr("Waze"));
   } else {
-    label.setText(QString::fromStdString(tr("None")));
+    label.setText(tr("None"));
   }
 }
 
@@ -6083,7 +6083,7 @@ OPKRServerAPI::OPKRServerAPI() : AbstractControl(tr("User's API"), tr("Set Your 
     if (btn.text() == tr("SET")) {
       QString users_api_host = InputDialog::getText(tr("Input Your API(url or ip):"), this);
       if (users_api_host.length() > 0) {
-        QString cmd0 = QString::fromStdString(tr("Your Input is")) + "\n" + users_api_host + "\n" + QString::fromStdString(tr("Press OK to apply&reboot"));
+        QString cmd0 = tr("Your Input is") + "\n" + users_api_host + "\n" + tr("Press OK to apply&reboot");
         if (ConfirmationDialog::confirm(cmd0, this)) {
           params.put("OPKRServerAPI", users_api_host.toStdString());
           params.put("OPKRServer", "2");
@@ -6365,9 +6365,9 @@ SpeedLimitSignType::SpeedLimitSignType() : AbstractControl(tr("SafetyCam SignTyp
 void SpeedLimitSignType::refresh() {
   QString option = QString::fromStdString(params.get("OpkrSpeedLimitSignType"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Circle")));
+    label.setText(tr("Circle"));
   } else {
-    label.setText(QString::fromStdString(tr("Rectangle")));
+    label.setText(tr("Rectangle"));
   }
 }
 
@@ -6429,13 +6429,13 @@ RadarLongHelperOption::RadarLongHelperOption() : AbstractControl(tr("Long Mode")
 void RadarLongHelperOption::refresh() {
   QString option = QString::fromStdString(params.get("RadarLongHelper"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("Vision Only")));
+    label.setText(tr("Vision Only"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("Vision+Radar")));
+    label.setText(tr("Vision+Radar"));
   } else if (option == "2") {
-    label.setText(QString::fromStdString(tr("Radar Only")));
+    label.setText(tr("Radar Only"));
   } else {
-    label.setText(QString::fromStdString(tr("OPKR Custom")));
+    label.setText(tr("OPKR Custom"));
   }
 }
 
@@ -6497,13 +6497,13 @@ CurvDecelSelect::CurvDecelSelect() : AbstractControl(tr("Curv Decel Option"), tr
 void CurvDecelSelect::refresh() {
   QString option = QString::fromStdString(params.get("CurvDecelOption"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("None")));
+    label.setText(tr("None"));
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("Vision+OSM")));
+    label.setText(tr("Vision+OSM"));
   } else if (option == "2") {
-    label.setText(QString::fromStdString(tr("Vision Only")));
+    label.setText(tr("Vision Only"));
   } else {
-    label.setText(QString::fromStdString(tr("OSM Only")));
+    label.setText(tr("OSM Only"));
   }
 }
 
@@ -6563,7 +6563,7 @@ AutoRESDelay::AutoRESDelay() : AbstractControl(tr("AutoRES Delay(sec)"), tr("Giv
 void AutoRESDelay::refresh() {
   QString option = QString::fromStdString(params.get("AutoRESDelay"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("No Delay")));
+    label.setText(tr("No Delay"));
   } else {
     label.setText(QString::fromStdString(params.get("AutoRESDelay")));
   }
@@ -7000,28 +7000,28 @@ OPKRTopTextView::OPKRTopTextView() : AbstractControl(tr("Bottom Text View"), tr(
 void OPKRTopTextView::refresh() {
   QString option = QString::fromStdString(params.get("TopTextView"));
   if (option == "0") {
-    label.setText(QString::fromStdString(tr("None")));
+    label.setText(tr("None"));
     QUIState::ui_state.scene.top_text_view = 0;
   } else if (option == "1") {
-    label.setText(QString::fromStdString(tr("Date+Time")));
+    label.setText(tr("Date+Time"));
     QUIState::ui_state.scene.top_text_view = 1;
   } else if (option == "2") {
-    label.setText(QString::fromStdString(tr("Date")));
+    label.setText(tr("Date"));
     QUIState::ui_state.scene.top_text_view = 2;
   } else if (option == "3") {
-    label.setText(QString::fromStdString(tr("Time")));
+    label.setText(tr("Time"));
     QUIState::ui_state.scene.top_text_view = 3;
   } else if (option == "4") {
-    label.setText(QString::fromStdString(tr("Date+Time+OSM")));
+    label.setText(tr("Date+Time+OSM"));
     QUIState::ui_state.scene.top_text_view = 4;
   } else if (option == "5") {
-    label.setText(QString::fromStdString(tr("Date+OSM")));
+    label.setText(tr("Date+OSM"));
     QUIState::ui_state.scene.top_text_view = 5;
   } else if (option == "6") {
-    label.setText(QString::fromStdString(tr("Time+OSM")));
+    label.setText(tr("Time+OSM"));
     QUIState::ui_state.scene.top_text_view = 6;
   } else {
-    label.setText(QString::fromStdString(tr("OSM")));
+    label.setText(tr("OSM"));
     QUIState::ui_state.scene.top_text_view = 7;
   }
 }
