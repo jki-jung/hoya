@@ -723,7 +723,7 @@ BranchSelectCombo::BranchSelectCombo() : AbstractControl("", "", "")
     branch_name1 = combobox.currentText();
     QString current_branch1 = QString::fromStdString(params.get("GitBranch"));
     if (combobox.currentIndex() != 0 && branch_name1 != current_branch1) {
-      if (ConfirmationDialog::confirm(tr("Now will checkout the branch, <") + branch_name1 + tr(">. The device will be rebooted if completed."), this)) {
+      if (ConfirmationDialog::confirm(tr("Now will checkout the branch") +", <" + branch_name1 + ">. " + tr("The device will be rebooted if completed."), this)) {
         QString cmd1 = "git -C /data/openpilot remote set-branches --add origin " + branch_name1;
         QString tcmd1 = "git -C /data/openpilot fetch --progress origin";
         QProcess::execute("pkill -f thermald");
@@ -739,7 +739,7 @@ BranchSelectCombo::BranchSelectCombo() : AbstractControl("", "", "")
         executeProgram1(tcmd1);
       }
     } else if (combobox.currentIndex() != 0 && branch_name1 == current_branch1) {
-      if (ConfirmationDialog::alert(tr("Your branch is already <") + current_branch1 + ">.", this)) {combobox.setCurrentIndex(0);}
+      if (ConfirmationDialog::alert(tr("Your branch is already") + " <" + current_branch1 + ">.", this)) {combobox.setCurrentIndex(0);}
     }
   });
 }
@@ -3509,7 +3509,7 @@ SteerMax::SteerMax() : AbstractControl("", "", "") {
     value = value + 1;
     if (value > value1) {
       value = value1;
-      ConfirmationDialog::alert(tr("The value cannot exceed SteerMax(") + str1 + ")", this);
+      ConfirmationDialog::alert(tr("The value cannot exceed SteerMax") + "(" + str1 + ")", this);
     } else if (value >= 512) {
       value = 512;
     }
@@ -3526,7 +3526,7 @@ SteerMax::SteerMax() : AbstractControl("", "", "") {
     value = value - 1;
     if (value < value1) {
       value = value1;
-      ConfirmationDialog::alert(tr("The value cannot be less than SteerMaxBase(") + str1 + ")", this);
+      ConfirmationDialog::alert(tr("The value cannot be less than SteerMaxBase") + "(" + str1 + ")", this);
     } else if (value <= 254) {
       value = 254;
     }
@@ -3639,7 +3639,7 @@ SteerDeltaUp::SteerDeltaUp() : AbstractControl("", "", "") {
     value = value + 1;
     if (value > value1) {
       value = value1;
-      ConfirmationDialog::alert(tr("The value cannot exceed maximum DeltaUp value(") + str1 + ")", this);
+      ConfirmationDialog::alert(tr("The value cannot exceed maximum DeltaUp value)" + "(" + str1 + ")", this);
     } else if (value >= 7) {
       value = 7;
     }
@@ -3656,7 +3656,7 @@ SteerDeltaUp::SteerDeltaUp() : AbstractControl("", "", "") {
     value = value - 1;
     if (value < value1) {
       value = value1;
-      ConfirmationDialog::alert(tr("The value cannot be less than DeltaUp default value(") + str1 + ")", this);
+      ConfirmationDialog::alert(tr("The value cannot be less than DeltaUp default value") + "(" + str1 + ")", this);
     } else if (value <= 3) {
       value = 3;
     }
@@ -3769,7 +3769,7 @@ SteerDeltaDown::SteerDeltaDown() : AbstractControl("", "", "") {
     value = value + 1;
     if (value > value1) {
       value = value1;
-      ConfirmationDialog::alert(tr("The value cannot exceed maximum DeltaDown value(") + str1 + ")", this);
+      ConfirmationDialog::alert(tr("The value cannot exceed maximum DeltaDown value") + "(" + str1 + ")", this);
     } else if (value >= 15) {
       value = 15;
     }
@@ -3786,7 +3786,7 @@ SteerDeltaDown::SteerDeltaDown() : AbstractControl("", "", "") {
     value = value - 1;
     if (value < value1) {
       value = value1;
-      ConfirmationDialog::alert(tr("The value cannot be less than DeltaDown default value(") + str1 + ")", this);
+      ConfirmationDialog::alert(tr("The value cannot be less than DeltaDown default value" + "(" + str1 + ")", this);
     } else if (value <= 7) {
       value = 7;
     }
