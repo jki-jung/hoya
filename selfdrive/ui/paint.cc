@@ -509,7 +509,6 @@ static void ui_draw_debug(UIState *s) {
     nvgFontSize(s->vg, 80);
     nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
     ui_print(s, ui_viz_rx_center, 540, "BF:%.1f   RL:%.1f°", scene.accel_prob[0], scene.accel_prob[1]);
-    ui_print(s, ui_viz_rx, ui_viz_ry+800, "BF:%.1f   RL:%.1f°", scene.accel_prob[0], scene.accel_prob[1]);
   }
 }
 
