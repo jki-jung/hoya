@@ -810,7 +810,7 @@ static void ui_draw_vision_event(UIState *s) {
   if (!s->scene.comma_stock_ui){
     if (s->scene.liveNaviData.opkrroadsign == 107) {                                              // 107 과속방지턱 일 경우  
       ui_draw_image(s, {960-175, 540-150, 350, 350}, "speed_bump", 0.3f);}
-    if (s->scene.liveNaviData.opkrspeedsign == 4 || (s->scene.liveNaviData.opkrspeedsign == 7) {  // 4 or 7 버스전용차로 단속일 경우
+    if (s->scene.liveNaviData.opkrspeedsign == 4 || s->scene.liveNaviData.opkrspeedsign == 7) {  // 4 or 7 버스전용차로 단속일 경우
       ui_draw_image(s, {sign_x, sign_y, 200, 200}, "bus_only", 0.8f);} 
     if (s->scene.liveNaviData.opkrspeedsign == 20) {                                              // 20 차선변경금지일 경우
       ui_draw_image(s, {sign_x, sign_y, 200, 200}, "do_not_change_lane", 0.8f);}
