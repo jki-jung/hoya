@@ -811,8 +811,7 @@ static void ui_draw_vision_event(UIState *s) {
     //과속방지턱( 124 ) 일 경우
     // if (s->scene.liveNaviData.opkrspeedsign == 124 && s->scene.limitSpeedCamera == 0 && s->scene.limitSpeedCameraDist == 0) {
     //과속방지턱( 107 ) 일 경우  
-    if (s->scene.liveNaviData.opkrspeedsign == 107 && s->scene.limitSpeedCamera == 0 && s->scene.limitSpeedCameraDist == 0) {  
-      ui_draw_image(s, {960-175, 540-150, 350, 350}, "speed_bump", 0.3f); }
+    if (s->scene.liveNaviData.opkrroadsign == 107) {ui_draw_image(s, {960-175, 540-150, 350, 350}, "speed_bump", 0.3f);}
     // 버스전용차로( 246 )일 경우
     if (s->scene.liveNaviData.opkrspeedsign == 246) {ui_draw_image(s, {center_x, center_y, 200, 200}, "bus_only", 0.8f);} 
     // 차선변경금지( 198 || 199 || 249 )일 경우
