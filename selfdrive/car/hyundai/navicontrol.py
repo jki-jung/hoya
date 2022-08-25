@@ -171,9 +171,6 @@ class NaviControl():
     #  return  cruise_set_speed_kph
 
     if not self.speedlimit_decel_off:
-      if CS.map_enabled and self.liveNaviData.safetySign == 107: #과속방지턱이 있으면 주행속도에 연동하여 제한속도 30km/h까지 가변으로 감속하기
-        cruise_set_speed_kph = interp(v_ego_kph, [35, 40, 60, 80], [30, 35, 45, 65])
-        self.onSpeedControl = True
       if self.osm_speedlimit_enabled and not self.sm['controlsState'].osmOffSpdLimit:  # osm speedlimit
         if self.sm['liveMapData'].speedLimit > 19 or self.sm['liveMapData'].speedLimitAhead > 19:
           # spdTarget = cruiseState_speed
@@ -231,7 +228,8 @@ class NaviControl():
             else:
               self.onSpeedControl = False
       elif CS.map_enabled and self.liveNaviData.safetySign == 107 and self.decel_on_speedbump:  # speed bump decel. 60km/h 속도에서 코드 발생 후 과속방지턱까지 15초정도 소요
-        cruise_set_speed_kph == 20 if CS.is_set_speed_in_mph else 30
+        # cruise_set_speed_kph == 20 if CS.is_set_speed_in_mph else 30
+        cruise_set_speed_kph = interp(v_ego_kph, [35, 40, 60, 80], [30, 35, 45, 65])
         self.onSpeedBumpControl = True
       elif CS.map_enabled and self.liveNaviData.speedLimit > 19 and self.liveNaviData.safetySignCam not in (4, 7, 16):  # navi app speedlimit
         self.onSpeedBumpControl = False

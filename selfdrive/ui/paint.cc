@@ -804,22 +804,18 @@ static void ui_draw_vision_speed(UIState *s) {
 }
 
 static void ui_draw_vision_event(UIState *s) {
-  const int center_x = (bdr_s) + 2 * (184 + 15);
-  const int center_y = int(bdr_s);
+  const int sign_x = (bdr_s) + 2 * (184 + 15);
+  const int sign_y = int(bdr_s);
 
   if (!s->scene.comma_stock_ui){
-    //과속방지턱( 124 ) 일 경우
-    // if (s->scene.liveNaviData.opkrspeedsign == 124 && s->scene.limitSpeedCamera == 0 && s->scene.limitSpeedCameraDist == 0) {
-    //과속방지턱( 107 ) 일 경우  
-    if (s->scene.liveNaviData.opkrroadsign == 107) {ui_draw_image(s, {960-175, 540-150, 350, 350}, "speed_bump", 0.3f);}
-    // 버스전용차로( 246 )일 경우
-    if (s->scene.liveNaviData.opkrspeedsign == 246) {ui_draw_image(s, {center_x, center_y, 200, 200}, "bus_only", 0.8f);} 
-    // 차선변경금지( 198 || 199 || 249 )일 경우
-    if (s->scene.liveNaviData.opkrspeedsign == 198 || s->scene.liveNaviData.opkrspeedsign == 199 || s->scene.liveNaviData.opkrspeedsign == 249) {
-      ui_draw_image(s, {center_x, center_y, 200, 200}, "do_not_change_lane", 0.8f);}
-    // 일반적인 과속단속구간( 135 || 150 || 200 || 231)일 경우 
-    if ((s->scene.liveNaviData.opkrspeedsign == 135 || s->scene.liveNaviData.opkrspeedsign == 150 || s->scene.liveNaviData.opkrspeedsign == 200 || s->scene.liveNaviData.opkrspeedsign == 231) && s->scene.liveNaviData.opkrspeedlimit > 29) {
-      if (s->scene.liveNaviData.opkrspeedlimit < 40) {ui_draw_image(s, {960-250, 540-200, 500, 500}, "speed_S30", 0.3f);} //중앙 스쿨존 이미
+    if (s->scene.liveNaviData.opkrroadsign == 107) {                                              // 107 과속방지턱 일 경우  
+      ui_draw_image(s, {960-175, 540-150, 350, 350}, "speed_bump", 0.3f);}
+    if (s->scene.liveNaviData.opkrspeedsign == 4 || (s->scene.liveNaviData.opkrspeedsign == 7) {  // 4 or 7 버스전용차로 단속일 경우
+      ui_draw_image(s, {sign_x, sign_y, 200, 200}, "bus_only", 0.8f);} 
+    if (s->scene.liveNaviData.opkrspeedsign == 20) {                                              // 20 차선변경금지일 경우
+      ui_draw_image(s, {sign_x, sign_y, 200, 200}, "do_not_change_lane", 0.8f);}
+    if (s->scene.liveNaviData.opkrspeedsign == 16 && s->scene.liveNaviData.opkrspeedlimit > 29) { // 16 스쿨존일 경우
+      ui_draw_image(s, {960-250, 540-200, 500, 500}, "speed_S30", 0.3f);} 
     }
   }
 
