@@ -1,4 +1,4 @@
-`#include "selfdrive/ui/paint.h"
+#include "selfdrive/ui/paint.h"
 
 #include <cassert>
 #include <cmath>
