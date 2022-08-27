@@ -93,7 +93,7 @@ int main() {
       }
       else if( strcmp( entry.tag, "opkrroadsigntype" ) == 0 )
       {
-        res.safetySign = atoi( entry.message ); 
+        res.safetySign = atoi( entry.message );
       }
       else if( strcmp( entry.tag, "opkrturninfo" ) == 0 )
       {
