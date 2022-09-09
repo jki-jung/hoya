@@ -230,7 +230,7 @@ class NaviControl():
             else:
               self.onSpeedControl = False
       elif self.decel_on_speedbump and CS.map_enabled and ((self.liveNaviData.safetySign == 107 and self.navi_sel == 0) or (self.liveNaviData.safetySignCam == 124 and self.navi_sel == 1)):
-        cruise_set_speed_kph = interp(v_ego_kph, [35, 40, 60, 80], [30, 35, 45, 65])
+        cruise_set_speed_kph = interp(v_ego_kph, [35, 40, 60, 80, 100], [30, 37, 50, 70, 90])
         self.onSpeedBumpControl = True
       elif CS.map_enabled and self.liveNaviData.speedLimit > 19 and self.liveNaviData.safetySignCam not in (4, 7, 16):  # navi app speedlimit
         self.onSpeedBumpControl = False
