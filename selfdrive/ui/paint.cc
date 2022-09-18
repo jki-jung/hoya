@@ -120,64 +120,45 @@ static void draw_lead(UIState *s, const cereal::RadarState::LeadData::Reader &le
   // Draw lead car indicator
   const float speed = std::max(0.0, (*s->sm)["carState"].getCarState().getVEgo()*(s->scene.is_metric ? 3.6 : 2.2369363));
   auto [x, y] = vd;
-  float fillAlpha1 = 0;
-  float fillAlpha2 = 0;
+  float fillAlpha = 0;
   float speedBuff = 10.;
   float leadBuff = 40.;
-  float d_rel1 = lead_data.getDRel();
-  float v_rel1 = lead_data.getVRel();
-  float d_rel2 = lead_data.getDRel();
-  float v_rel2 = lead_data.getVRel();
-  if (d_rel1 < leadBuff) {
-    fillAlpha1 = 255*(1.0-(d_rel1/leadBuff));
-    if (v_rel1 < 0) {
-      fillAlpha1 += 255*(-1*(v_rel1/speedBuff));
+  float d_rel = lead_data.getDRel();
+  float v_rel = lead_data.getVRel();
+  if (d_rel < leadBuff) {
+    fillAlpha = 255*(1.0-(d_rel/leadBuff));
+    if (v_rel < 0) {
+      fillAlpha += 255*(-1*(v_rel/speedBuff));
     }
-    fillAlpha1 = (int)(fmin(fillAlpha1, 255));
-  }
-  if (d_rel2 < leadBuff) {
-    fillAlpha2 = 255*(1.0-(d_rel2/leadBuff));
-    if (v_rel2 < 0) {
-      fillAlpha2 += 255*(-1*(v_rel2/speedBuff));
-    }
-    fillAlpha2 = (int)(fmin(fillAlpha2, 255));
+    fillAlpha = (int)(fmin(fillAlpha, 255));
   }
   char radarDist[32];
   float radar_dist = s->scene.radarDistance;
   // const std::string radarDist_str = std::to_string((int)std::nearbyint(radar_dist));
   // ui_draw_text(s, rect.centerX(), bdr_s+165, radarDist_str.c_str(), 48 * 2.5, COLOR_WHITE, "sans-bold");
-  float sz1 = std::clamp((25 * 54) / (d_rel1 / 2 + 15), 20.0f, 90.0f) * 2.35;
-  x1 = std::clamp(x, 0.f, s->fb_w - sz1 / 2);
-  y1 = std::fmin(s->fb_h - sz1 * .6, y);
-  float sz2 = std::clamp((25 * 54) / (d_rel1 / 2 + 15), 20.0f, 90.0f) * 2.35;
-  x2 = std::clamp(x, 0.f, s->fb_w - sz2 / 2);
-  y2 = std::fmin(s->fb_h - sz2 * .6, y);  nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
+  float sz = std::clamp((25 * 54) / (d_rel / 2 + 15), 20.0f, 90.0f) * 2.35;
+  x = std::clamp(x, 0.f, s->fb_w - sz / 2);
+  y = std::fmin(s->fb_h - sz * .6, y);
+  nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);
   snprintf(radarDist, sizeof(radarDist), "%.0fm", radar_dist);
   if (leads == 1) {
     if (s->scene.radarDistance < 149) {
-      if (d_rel1 / speed < 0.5) {
-        draw_chevron(s, x1, y1, sz1, nvgRGBA(201, 34, 49, fillAlpha1), nvgRGBA(201, 34, 49, fillAlpha1));
-      } else if (d_rel1 / speed < 0.8) {
-        draw_chevron(s, x1, y1, sz1, nvgRGBA(240, 160, 0, 200), nvgRGBA(240, 160, 0, 200));
+      if (d_rel / speed < 0.5) {
+        draw_chevron(s, x, y, sz, nvgRGBA(201, 34, 49, fillAlpha), nvgRGBA(201, 34, 49, fillAlpha));
+      } else if (d_rel / speed < 0.8) {
+        draw_chevron(s, x, y, sz, nvgRGBA(240, 160, 0, 200), nvgRGBA(240, 160, 0, 200));
       } else {
-        draw_chevron(s, x1, y1, sz1, nvgRGBA(0, 160, 0, 200), nvgRGBA(0, 160, 0, 200));
+        draw_chevron(s, x, y, sz, nvgRGBA(0, 160, 0, 200), nvgRGBA(0, 160, 0, 200));
       }
-      ui_draw_text(s, x1, y1 + sz1/1.5f, radarDist, 80, COLOR_WHITE, "sans-bold");
+      ui_draw_text(s, x, y + sz/1.5f, radarDist, 80, COLOR_WHITE, "sans-bold");
     } else {
-      ui_draw_circle_image_rotation(s, x, y, sz1, "custom_lead_vision", nvgRGBA(0, 0, 0, 0), 0.7f, s->scene.bearingUblox); 
+      ui_draw_circle_image_rotation(s, x, y, sz, "custom_lead_vision", nvgRGBA(0, 0, 0, 0), 0.7f, s->scene.bearingUblox); 
     }
   } else if (leads == 2) {
     if (s->scene.radarDistance < 149) {
-      if (d_rel2 / speed < 0.5) {
-        draw_chevron(s, x2, y2, sz2, nvgRGBA(201, 34, 49, fillAlpha2), nvgRGBA(201, 34, 49, fillAlpha2));
-      } else if (d_rel2 / speed < 0.8) {
-        draw_chevron(s, x2, y2, sz2, nvgRGBA(240, 160, 0, 200), nvgRGBA(240, 160, 0, 200));
-      } else {
-        draw_chevron(s, x2, y2, sz2, nvgRGBA(0, 160, 0, 200), nvgRGBA(0, 160, 0, 200));
-      }
-      ui_draw_text(s, x2, y2 + sz2/1.5f, radarDist, 80, COLOR_WHITE, "sans-bold");
+      draw_chevron(s, x, y, sz, nvgRGBA(201, 34, 49, fillAlpha), COLOR_BLACK);
     } else {
-      ui_draw_circle_image_rotation(s, x, y, sz2, "custom_lead_vision", nvgRGBA(0, 0, 0, 0), 0.7f, s->scene.bearingUblox); 
+      draw_chevron(s, x, y, sz, nvgRGBA(165, 255, 135, fillAlpha), COLOR_BLACK);
     }
   }
 }
