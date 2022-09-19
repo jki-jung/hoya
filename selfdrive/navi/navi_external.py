@@ -17,15 +17,7 @@ class ENavi():
 
     self.ip_add = Params().get("ExternalDeviceIP", encoding="utf8")
 
-    self.timer = 0
-
   def navi_data(self):
-
-    self.timer += 1
-    if self.timer > 10:
-      self.timer = 0
-      self.ip_add = Params().get("ExternalDeviceIP", encoding="utf8")
-
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
     try:
