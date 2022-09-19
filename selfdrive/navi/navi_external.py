@@ -73,7 +73,7 @@ class ENavi():
     navi_msg.liveENaviData.safetySign = int(self.sign_type)
     navi_msg.liveENaviData.turnInfo = int(self.turn_info)
     navi_msg.liveENaviData.distanceToTurn = float(self.turn_distance)
-    navi_msg.liveENaviData.connectionAlive = bool(self.self.check_connection)
+    navi_msg.liveENaviData.connectionAlive = bool(self.check_connection)
     pm.send('liveENaviData', navi_msg)
 
 def navid_thread(pm=None):
