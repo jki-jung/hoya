@@ -1762,6 +1762,7 @@ struct LiveENaviData {
   safetySign @2 :Int32;
   turnInfo @3 :Int32;
   distanceToTurn @4 :Float32;
+  safetySignCam @5 :Int32;
 }
 
 struct LiveMapDataDEPRECATED {
