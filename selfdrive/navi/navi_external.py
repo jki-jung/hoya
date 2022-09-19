@@ -47,7 +47,7 @@ class ENavi():
         self.check_timer = 0
         self.check_connection = False
         if not self.check_ip_found:
-          os.system('fuser -k 5555/tcp')
+          os.system('pkill selfdrive.navi.navi_external')
           self.ip_num += 1
           if self.ip_num >= self.ip_add_num:
             self.ip_num = 0
