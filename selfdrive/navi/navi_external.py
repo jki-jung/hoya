@@ -30,9 +30,9 @@ class ENavi():
       if self.ip_add_num == 1:
         socket.connect("tcp://"+str(self.ip_add[0])+":5555")
       elif self.ip_add_num == 2:
-        socket.connect("tcp://"+str(self.ip_add[0])+":5555;"+str(self.ip_add[1])+":5555")
+        socket.connect('tcp://192.168.8.102:5555;192.168.0.113:5555')
       elif self.ip_add_num == 3:
-        socket.connect("tcp://"+str(self.ip_add[0])+":5555;"+str(self.ip_add[1])+":5555;"+str(self.ip_add[2])+":5555")
+        socket.connect('tcp://192.168.8.102:5555;192.168.0.113:5555')
     except:
       socket.connect("tcp://127.0.0.1:5555")
       pass
