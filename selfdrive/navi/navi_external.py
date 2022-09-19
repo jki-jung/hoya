@@ -23,9 +23,6 @@ class ENavi():
     self.check_connection = False
     self.check_timer = 0
 
-    print(self.ip_add[0])
-    print(self.ip_add[1])
-
   def navi_data(self):
 
     context = zmq.Context()
@@ -45,7 +42,7 @@ class ENavi():
       self.check_ip_found = True
     else:
       self.check_timer += 1
-      if self.check_timer > 5:
+      if self.check_timer > 200:
         self.check_timer = 0
         self.check_connection = False
         if not self.check_ip_found:
