@@ -28,7 +28,7 @@ class ENavi():
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
     try:
-      socket.connect("tcp://" + str(self.ip_add[self.ip_num]) + ":5555")
+      socket.connect("tcp://" + str(self.ip_add[1]) + ":5555")
     except:
       socket.connect("tcp://127.0.0.1:5555")
       pass
@@ -40,15 +40,15 @@ class ENavi():
       self.spd_limit = arr[1]
       self.check_connection = True
       self.check_ip_found = True
-    else:
-      self.check_timer += 1
-      if self.check_timer > 200:
-        self.check_timer = 0
-        self.check_connection = False
-        if not self.check_ip_found:
-          self.ip_num += 1
-          if self.ip_num >= self.ip_add_num:
-            self.ip_num = 0
+    # else:
+    #   self.check_timer += 1
+    #   if self.check_timer > 200:
+    #     self.check_timer = 0
+    #     self.check_connection = False
+    #     if not self.check_ip_found:
+    #       self.ip_num += 1
+    #       if self.ip_num >= self.ip_add_num:
+    #         self.ip_num = 0
 
     if "opkrspddist" in message:
       arr = message.split(': ')
