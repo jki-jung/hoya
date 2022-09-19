@@ -42,7 +42,7 @@ REPLAY = "REPLAY" in os.environ
 SIMULATION = "SIMULATION" in os.environ
 NOSENSOR = "NOSENSOR" in os.environ
 IGNORE_PROCESSES = {"rtshield", "uploader", "deleter", "loggerd", "logmessaged", "tombstoned",
-                    "logcatd", "proclogd", "clocksd", "updated", "timezoned", "manage_athenad", "statsd", "shutdownd", 'liveNaviData', 'liveMapData'} | \
+                    "logcatd", "proclogd", "clocksd", "updated", "timezoned", "manage_athenad", "statsd", "shutdownd", 'liveNaviData', 'liveENaviData', 'liveMapData'} | \
                     {k for k, v in managed_processes.items() if not v.enabled}
 
 ACTUATOR_FIELDS = set(car.CarControl.Actuators.schema.fields.keys())
@@ -84,7 +84,7 @@ class Controls:
       ignore = ['driverCameraState', 'managerState'] if SIMULATION else None
       self.sm = messaging.SubMaster(['deviceState', 'pandaStates', 'peripheralState', 'modelV2', 'liveCalibration',
                                      'driverMonitoringState', 'longitudinalPlan', 'lateralPlan', 'liveLocationKalman',
-                                     'managerState', 'liveParameters', 'radarState', 'liveNaviData', 'liveMapData'] + self.camera_packets + joystick_packet,
+                                     'managerState', 'liveParameters', 'radarState', 'liveNaviData', 'liveENaviData', 'liveMapData'] + self.camera_packets + joystick_packet,
                                      ignore_alive=ignore, ignore_avg_freq=['radarState', 'longitudinalPlan'])
 
     self.can_sock = can_sock
@@ -245,6 +245,7 @@ class Controls:
 
     self.var_cruise_speed_factor = int(Params().get("VarCruiseSpeedFactor", encoding="utf8"))
     self.desired_angle_deg = 0
+    self.navi_selection = int(Params().get("OPKRNaviSelect", encoding="utf8"))
 
   def auto_enable(self, CS):
     if self.state != State.enabled:
@@ -930,6 +931,10 @@ class Controls:
           controlsState.limitSpeedCamera = float(self.roadname_and_slc[r_index+1])
         except:
           pass
+    elif self.navi_selection == 3:
+      controlsState.limitSpeedCamera = int(round(self.sm['liveENaviData'].speedLimit))
+      controlsState.limitSpeedCameraDist = float(self.sm['liveENaviData'].safetyDistance)
+      controlsState.mapSign = int(self.sm['liveENaviData'].safetySign)
     elif self.map_enabled:
       controlsState.limitSpeedCamera = int(round(self.sm['liveNaviData'].speedLimit))
       controlsState.limitSpeedCameraDist = float(self.sm['liveNaviData'].speedLimitDistance)
