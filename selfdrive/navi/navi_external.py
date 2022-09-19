@@ -23,6 +23,9 @@ class ENavi():
     self.check_connection = False
     self.check_timer = 0
 
+    print(self.ip_add[0])
+    print(self.ip_add[1])
+
   def navi_data(self):
 
     context = zmq.Context()
