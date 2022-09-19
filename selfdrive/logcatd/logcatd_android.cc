@@ -157,7 +157,7 @@ int main() {
       }
 
       framed.setSpeedLimit( res.speedLimit );  // int;
-      framed.setSpeedLimitDistance( res.safetyDistance );  // raw_target_speed_map_dist Float32;
+      framed.setSafetyDistance( res.safetyDistance );  // raw_target_speed_map_dist Float32;
       framed.setSafetySign( res.safetySign ); // int;
       framed.setSafetySignCam( res.safetySignCam ); // int;
       // framed.setRoadCurvature( res.roadCurvature ); // road_curvature Float32;
