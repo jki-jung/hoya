@@ -571,7 +571,7 @@ class Controls:
           self.osm_off_spdlimit = False    
         elif self.osm_speedlimit == osm_speedlimit_:
           self.osm_off_spdlimit = True
-        elif round(self.sm['liveMapData'].speedLimit) > 19 and osm_speedlimit != self.v_cruise_kph:
+        elif round(self.sm['liveMapData'].speedLimit) > 21 and osm_speedlimit != self.v_cruise_kph:
           self.osm_speedlimit = 255
           self.osm_off_spdlimit = False
           self.v_cruise_kph = osm_speedlimit
