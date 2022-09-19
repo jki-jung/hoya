@@ -16,10 +16,17 @@ class ENavi():
     self.turn_distance = 0
 
     self.ip_add = Params().get("ExternalDeviceIP", encoding="utf8")
+    # self.ip_add = list(map(str, Params().get("ExternalDeviceIP", encoding="utf8").split(',')))
     self.check_connection = False
     self.check_timer = 0
+    self.check_ip_timer = 0
+
+  # def dev_ip(self):
+
 
   def navi_data(self):
+
+    print('test')
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
     try:
