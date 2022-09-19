@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import numpy as np
 import cereal.messaging as messaging
 from common.params import Params
@@ -42,11 +43,11 @@ class ENavi():
       self.check_ip_found = True
     else:
       self.check_timer += 1
-      if self.check_timer > 2:
+      if self.check_timer > 3:
         self.check_timer = 0
         self.check_connection = False
         if not self.check_ip_found:
-          socket.close()
+          os.system('fuser -k 5555/tcp')
           self.ip_num += 1
           if self.ip_num >= self.ip_add_num:
             self.ip_num = 0
