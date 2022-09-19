@@ -42,10 +42,11 @@ class ENavi():
       self.check_ip_found = True
     else:
       self.check_timer += 1
-      if self.check_timer > 200:
+      if self.check_timer > 2:
         self.check_timer = 0
         self.check_connection = False
         if not self.check_ip_found:
+          socket.close()
           self.ip_num += 1
           if self.ip_num >= self.ip_add_num:
             self.ip_num = 0
