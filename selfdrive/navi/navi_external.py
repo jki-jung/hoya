@@ -16,6 +16,8 @@ class ENavi():
     self.turn_distance = 0
 
     self.ip_add = Params().get("ExternalDeviceIP", encoding="utf8")
+    self.check_connection = False
+    self.check_timer = 0
 
   def navi_data(self):
     context = zmq.Context()
@@ -31,6 +33,14 @@ class ENavi():
     if "opkrspdlimit" in message:
       arr = message.split(': ')
       self.spd_limit = arr[1]
+      self.check_connection = True
+    else:
+      self.check_timer += 1
+      if self.check_timer > 2:
+        self.check_timer = 0
+        self.check_connection = False
+        print("Test")
+
     if "opkrspddist" in message:
       arr = message.split(': ')
       self.safety_distance = arr[1]
