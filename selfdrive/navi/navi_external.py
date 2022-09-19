@@ -18,8 +18,6 @@ class ENavi():
 
     self.ip_add = list(map(str, Params().get("ExternalDeviceIP", encoding="utf8").split(',')))
     self.ip_add_num = int(len(self.ip_add))
-    self.ip_num = 0
-    self.check_ip_found = False
   
     self.check_connection = False
     self.check_timer = 0
@@ -29,7 +27,12 @@ class ENavi():
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
     try:
-      socket.connect("tcp://" + str(self.ip_add[self.ip_num]) + ":5555")
+      if self.ip_add_num == 1:
+        socket.connect("tcp://"+str(self.ip_add[0])+":5555")
+      elif self.ip_add_num == 2:
+        socket.connect("tcp://"+str(self.ip_add[0])+":5555;"+str(self.ip_add[1])+":5555")
+      elif self.ip_add_num == 3:
+        socket.connect("tcp://"+str(self.ip_add[0])+":5555;"+str(self.ip_add[1])+":5555;"+str(self.ip_add[2])+":5555")
     except:
       socket.connect("tcp://127.0.0.1:5555")
       pass
@@ -40,17 +43,11 @@ class ENavi():
       arr = message.split(': ')
       self.spd_limit = arr[1]
       self.check_connection = True
-      self.check_ip_found = True
     else:
       self.check_timer += 1
       if self.check_timer > 3:
         self.check_timer = 0
         self.check_connection = False
-        if not self.check_ip_found:
-          os.system('pkill selfdrive.navi.navi_external')
-          self.ip_num += 1
-          if self.ip_num >= self.ip_add_num:
-            self.ip_num = 0
 
     if "opkrspddist" in message:
       arr = message.split(': ')
