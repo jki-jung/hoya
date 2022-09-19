@@ -15,22 +15,20 @@ class ENavi():
     self.turn_info = 0
     self.turn_distance = 0
 
-    self.ip_add = Params().get("ExternalDeviceIP", encoding="utf8")
-    # self.ip_add = list(map(str, Params().get("ExternalDeviceIP", encoding="utf8").split(',')))
+    self.ip_add = list(map(str, Params().get("ExternalDeviceIP", encoding="utf8").split(',')))
+    self.ip_add_num = int(len(self.ip_add))
+    self.ip_num = 0
+    self.check_ip_found = False
+  
     self.check_connection = False
     self.check_timer = 0
-    self.check_ip_timer = 0
-
-  # def dev_ip(self):
-
 
   def navi_data(self):
 
-    print('test')
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
     try:
-      socket.connect("tcp://" + str(self.ip_add) + ":5555")
+      socket.connect("tcp://" + str(self.ip_add[self.ip_num]) + ":5555")
     except:
       socket.connect("tcp://127.0.0.1:5555")
       pass
@@ -41,12 +39,16 @@ class ENavi():
       arr = message.split(': ')
       self.spd_limit = arr[1]
       self.check_connection = True
+      self.check_ip_found = True
     else:
       self.check_timer += 1
-      if self.check_timer > 2:
+      if self.check_timer > 5:
         self.check_timer = 0
         self.check_connection = False
-        print("Test")
+        if not self.check_ip_found:
+          self.ip_num += 1
+          if self.ip_num >= self.ip_add_num:
+            self.ip_num = 0
 
     if "opkrspddist" in message:
       arr = message.split(': ')
@@ -71,6 +73,7 @@ class ENavi():
     navi_msg.liveENaviData.safetySign = int(self.sign_type)
     navi_msg.liveENaviData.turnInfo = int(self.turn_info)
     navi_msg.liveENaviData.distanceToTurn = float(self.turn_distance)
+    navi_msg.liveENaviData.connectionAlive = bool(self.self.check_connection)
     pm.send('liveENaviData', navi_msg)
 
 def navid_thread(pm=None):
