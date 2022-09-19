@@ -259,7 +259,7 @@ static void ui_draw_world(UIState *s) {
     if (lead_one.getStatus()) {
       draw_lead(s, lead_one, s->scene.lead_vertices[0]);
     }
-    if (lead_two.getStatus() && (std::abs(lead_one.getDRel() - lead_two.getDRel()) > 3.0)) {
+    if (lead_two.getStatus() && (std::abs(lead_one.getDRel() - lead_two.getDRel()) > 2.0)) {
       draw_lead(s, lead_two, s->scene.lead_vertices[1]);
     }
     if (s->scene.stop_line && s->scene.longitudinalPlan.stopline[12] > 3.0) {
@@ -802,7 +802,7 @@ static void ui_draw_vision_event(UIState *s) {
   const int sign_y = int(bdr_s);
 
   if (!s->scene.comma_stock_ui){
-    if (s->scene.liveNaviData.opkrroadsign == 107 || s->scene.liveNaviData.opkrspeedsign == 124) { // 107 과속방지턱 일 경우  
+    if (s->scene.liveNaviData.opkrroadsign == 107 || s->scene.liveNaviData.opkrspeedsign == 124 || s->scene.liveENaviData.eopkrsafetysign == 22) { // 107 과속방지턱 일 경우  
       ui_draw_image(s, {960-175, 540-150, 350, 350}, "speed_bump", 0.3f);}
     if (s->scene.liveNaviData.opkrspeedsign == 4 || s->scene.liveNaviData.opkrspeedsign == 7) {    // 4 or 7 버스전용차로 단속일 경우
       ui_draw_image(s, {sign_x, sign_y, 200, 200}, "bus_only", 0.8f);} 

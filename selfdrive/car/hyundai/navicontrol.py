@@ -17,7 +17,7 @@ LaneChangeState = log.LateralPlan.LaneChangeState
 class NaviControl():
   def __init__(self):
 
-    self.sm = messaging.SubMaster(['liveNaviData', 'lateralPlan', 'radarState', 'controlsState', 'liveMapData', 'modelV2'])
+    self.sm = messaging.SubMaster(['liveNaviData', 'liveENaviData', 'lateralPlan', 'radarState', 'controlsState', 'liveMapData', 'modelV2'])
 
     self.btn_cnt = 0
     self.seq_command = 0
@@ -162,7 +162,10 @@ class NaviControl():
     cruise_set_speed_kph = cruiseState_speed
     v_ego_kph = CS.out.vEgo * CV.MS_TO_KPH
     v_ego_mph = CS.out.vEgo * CV.MS_TO_MPH
-    self.liveNaviData = sm['liveNaviData']
+    if self.navi_sel in (0, 1):
+      self.liveNaviData = sm['liveNaviData']
+    elif self.navi_sel == 3:
+      self.liveNaviData = sm['liveENaviData']
     # speedLimit = self.liveNaviData.speedLimit
     # speedLimitDistance = self.liveNaviData.speedLimitDistance  #speedLimitDistance
     # safetySign = self.liveNaviData.safetySign
@@ -229,9 +232,18 @@ class NaviControl():
               self.onSpeedControl = True
             else:
               self.onSpeedControl = False
-      elif self.decel_on_speedbump and CS.map_enabled and ((self.liveNaviData.safetySign == 107 and self.navi_sel == 0) or (self.liveNaviData.safetySignCam == 124 and self.navi_sel == 1)):
-        cruise_set_speed_kph = interp(v_ego_kph, [35, 40, 60, 80, 100], [30, 37, 50, 70, 90])
-        self.onSpeedBumpControl = True
+      # elif self.decel_on_speedbump and CS.map_enabled and ((self.liveNaviData.safetySign == 107 and self.navi_sel == 0) or (self.liveNaviData.safetySignCam == 124 and self.navi_sel == 1)): # Hoya
+      #   cruise_set_speed_kph = interp(v_ego_kph, [35, 40, 60, 80, 100], [30, 35, 45, 60, 80])
+      #   self.onSpeedBumpControl = True
+      elif self.decel_on_speedbump and CS.map_enabled and ((self.liveNaviData.safetySign == 107 and self.navi_sel == 0) \
+       or (self.liveNaviData.safetySignCam == 124 and self.navi_sel == 1) or (self.liveNaviData.safetySign == 22 and self.navi_sel == 3)):
+        cruise_set_speed_kph == 20 if CS.is_set_speed_in_mph else 30
+        sb_consider_speed = interp((v_ego_kph - 30), [0, 50], [1, 2.5])
+        sb_final_decel_start_dist = sb_consider_speed*v_ego_kph
+        if self.liveNaviData.safetyDistance < sb_final_decel_start_dist and self.navi_sel == 3:
+          self.onSpeedBumpControl = True
+        elif self.navi_sel in (0,1):
+          self.onSpeedBumpControl = True
       elif CS.map_enabled and self.liveNaviData.speedLimit > 19 and self.liveNaviData.safetySignCam not in (4, 7, 16):  # navi app speedlimit
         self.onSpeedBumpControl = False
         self.map_speed_dist = max(0, self.liveNaviData.speedLimitDistance - 30)
@@ -341,7 +353,7 @@ class NaviControl():
     self.lead_1 = self.sm['radarState'].leadTwo
     self.leadv3 = self.sm['modelV2'].leadsV3
 
-    self.cut_in = True if self.lead_1.status and (self.lead_0.dRel - self.lead_1.dRel) > 3.0 else False
+    self.cut_in = True if self.lead_1.status and (self.lead_0.dRel - self.lead_1.dRel) > 2.0 else False
     #cut_in_model = True if self.leadv3[1].prob > 0.5 and abs(self.leadv3[1].x[0] - self.leadv3[0].x[0]) > 3.0 else False
 
     self.cutInControl = False
@@ -365,10 +377,7 @@ class NaviControl():
         var_speed = min(navi_speed, 30 if CS.is_set_speed_in_mph else 45)
       elif self.onSpeedBumpControl:
         var_speed = min(navi_speed, 20 if CS.is_set_speed_in_mph else 30)
-        if CS.VSetDis > CS.clu_Vanz:
-          self.t_interval = 7
-        else:
-          self.t_interval = int(interp(CS.out.vEgo, [9, 20], [50, 10])) if not (self.onSpeedControl or self.curvSpeedControl or self.cut_in) else 7
+        self.t_interval = 7
       elif self.faststart and CS.CP.vFuture <= 40:
         var_speed = min(navi_speed, 30 if CS.is_set_speed_in_mph else 45)
       elif self.lead_0.status and CS.CP.vFuture >= (min_control_speed-(4 if CS.is_set_speed_in_mph else 7)):
