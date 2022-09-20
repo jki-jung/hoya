@@ -30,19 +30,19 @@ class ENavi():
         self.ip_add = Params().get("ExternalDeviceIPNow", encoding="utf8")
         if self.ip_add is not None:
           self.ip_bind = True
+          context = zmq.Context()
+          socket = context.socket(zmq.SUB)
+          try:
+            socket.connect("tcp://" + str(self.ip_add) + ":5555")
+          except:
+            socket.connect("tcp://127.0.0.1:5555")
+            pass
+          socket.subscribe("")
+          
 
   def navi_data(self):
     if self.ip_bind:
-      context = zmq.Context()
-      socket = context.socket(zmq.SUB)
-      try:
-        socket.connect("tcp://" + str(self.ip_add) + ":5555")
-      except:
-        socket.connect("tcp://127.0.0.1:5555")
-        pass
-      socket.subscribe("")
       message = str(socket.recv(), 'utf-8')
-
       if "opkrspdlimit" in message:
         arr = message.split(': ')
         self.spd_limit = arr[1]
