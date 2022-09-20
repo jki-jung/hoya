@@ -31,18 +31,18 @@ class ENavi():
         if self.ip_add is not None:
           self.ip_bind = True
           context = zmq.Context()
-          socket = context.socket(zmq.SUB)
+          self.socket = context.socket(zmq.SUB)
           try:
-            socket.connect("tcp://" + str(self.ip_add) + ":5555")
+            self.socket.connect("tcp://" + str(self.ip_add) + ":5555")
           except:
-            socket.connect("tcp://127.0.0.1:5555")
+            self.socket.connect("tcp://127.0.0.1:5555")
             pass
-          socket.subscribe("")
+          self.socket.subscribe("")
           
 
   def navi_data(self):
     if self.ip_bind:
-      message = str(socket.recv(), 'utf-8')
+      message = str(self.socket.recv(), 'utf-8')
       if "opkrspdlimit" in message:
         arr = message.split(': ')
         self.spd_limit = arr[1]
