@@ -49,11 +49,10 @@ class ENavi():
 
       message = str(socket.recv(), 'utf-8')
 
-
-      # if message is not None:
-      #   self.check_connection = True
-      # else:
-      #   self.check_connection = False
+      if message is not None:
+        self.check_connection = True
+      else:
+        self.check_connection = False
 
       for line in message.split('\n'):
         if "opkrspdlimit" in line:
@@ -73,17 +72,15 @@ class ENavi():
           self.turn_distance = arr[1]
 
   def publish(self, pm):
-    if self.navi_selection != 3:
-      return
-
-    navi_msg = messaging.new_message('liveENaviData')
-    navi_msg.liveENaviData.speedLimit = int(self.spd_limit)
-    navi_msg.liveENaviData.safetyDistance = float(self.safety_distance)
-    navi_msg.liveENaviData.safetySign = int(self.sign_type)
-    navi_msg.liveENaviData.turnInfo = int(self.turn_info)
-    navi_msg.liveENaviData.distanceToTurn = float(self.turn_distance)
-    navi_msg.liveENaviData.connectionAlive = bool(self.check_connection)
-    pm.send('liveENaviData', navi_msg)
+    if self.ip_bind:
+      navi_msg = messaging.new_message('liveENaviData')
+      navi_msg.liveENaviData.speedLimit = int(self.spd_limit)
+      navi_msg.liveENaviData.safetyDistance = float(self.safety_distance)
+      navi_msg.liveENaviData.safetySign = int(self.sign_type)
+      navi_msg.liveENaviData.turnInfo = int(self.turn_info)
+      navi_msg.liveENaviData.distanceToTurn = float(self.turn_distance)
+      navi_msg.liveENaviData.connectionAlive = bool(self.check_connection)
+      pm.send('liveENaviData', navi_msg)
 
 def navid_thread(pm=None):
   navid = ENavi()
