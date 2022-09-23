@@ -20,7 +20,6 @@ class ENavi():
     self.ip_check_timer = 0
   
     self.check_connection = False
-    self.check_timer = 0
 
   def bind_ip(self):
     if not self.ip_bind:
@@ -50,16 +49,15 @@ class ENavi():
 
       message = str(socket.recv(), 'utf-8')
 
+      if message is not None:
+        self.check_connection = True
+      else:
+        self.check_connection = False
+
       for line in message.split('\n'):
         if "opkrspdlimit" in line:
           arr = line.split('opkrspdlimit: ')
           self.spd_limit = arr[1]
-          self.check_connection = True
-        else:
-          self.check_timer += 1
-          if self.check_timer > 25:
-            self.check_timer = 0
-            self.check_connection = False
         if "opkrspddist" in line:
           arr = line.split('opkrspddist: ')
           self.safety_distance = arr[1]
