@@ -1410,7 +1410,7 @@ static void draw_navi_button(UIState *s) {
   nvgStrokeWidth(s->vg, 6);
   nvgStroke(s->vg);
   nvgFontSize(s->vg, 55);
-  if (s->scene.map_is_running || s->scene.eopkrconalive) {
+  if (s->scene.map_is_running || s->scene.liveENaviData.eopkrconalive) {
     NVGcolor fillColor = nvgRGBA(0,0,255,80);
     nvgFillColor(s->vg, fillColor);
     nvgFill(s->vg);
@@ -1423,7 +1423,7 @@ static void draw_navi_button(UIState *s) {
     nvgText(s->vg,btn_xc1,btn_yc+17,"Search",NULL);
   } else {
     nvgText(s->vg,btn_xc1,btn_yc,"NAVI",NULL);
-    if (s->scene.eopkrconalive) {
+    if (s->scene.liveENaviData.eopkrconalive) {
       nvgText(s->vg,btn_xc1,btn_yc-35,"TM",NULL);
     }
   }
