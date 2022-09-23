@@ -83,6 +83,7 @@ def navid_thread(end_event, hw_queue):
       pm.send('liveENaviData', navi_msg)
 
     count += 1
+    time.sleep(DT_TRML)
 
 
 def main():
