@@ -13,7 +13,6 @@ import zmq
 def navid_thread(end_event, hw_queue):
   pm = messaging.PubMaster(['liveENaviData'])
   count = 0
-  ts = sec_since_boot()
 
   spd_limit = 0
   safety_distance = 0
