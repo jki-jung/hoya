@@ -49,10 +49,11 @@ class ENavi():
 
       message = str(socket.recv(), 'utf-8')
 
-      if message is not None:
-        self.check_connection = True
-      else:
-        self.check_connection = False
+
+      # if message is not None:
+      #   self.check_connection = True
+      # else:
+      #   self.check_connection = False
 
       for line in message.split('\n'):
         if "opkrspdlimit" in line:
