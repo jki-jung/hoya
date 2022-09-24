@@ -1415,7 +1415,7 @@ static void draw_navi_button(UIState *s) {
   nvgStroke(s->vg);
   nvgFontSize(s->vg, 55);
   if (s->scene.map_is_running || s->scene.liveENaviData.eopkrconalive) {
-    NVGcolor fillColor = nvgRGBA(0,160,255,80);
+    NVGcolor fillColor = nvgRGBA(0,0,255,80);
     nvgFillColor(s->vg, fillColor);
     nvgFill(s->vg);
   }
@@ -1426,9 +1426,10 @@ static void draw_navi_button(UIState *s) {
     nvgFontSize(s->vg, 48);
     nvgText(s->vg,btn_xc1,btn_yc+17,"Search",NULL);
   } else {
-    nvgText(s->vg,btn_xc1,btn_yc,"NAVI",NULL);
     if (s->scene.liveENaviData.eopkrconalive) {
-      nvgText(s->vg,btn_xc1,btn_yc-35,"TM",NULL);
+      nvgText(s->vg,btn_xc1,btn_yc,"TMAP",NULL);
+    } else {
+      nvgText(s->vg,btn_xc1,btn_yc,"NAVI",NULL);
     }
   }
 }
@@ -1538,13 +1539,12 @@ static void ui_draw_vision_header(UIState *s) {
     ui_draw_turn_signal(s);    
     ui_draw_vision_scc_gap(s);
     ui_draw_gear(s);
-    ui_draw_compass(s);
     ui_draw_vision_autohold(s);
     ui_draw_center_wheel(s);
     ui_draw_vision_accel_brake(s);
     ui_draw_tpms(s);
     draw_safetysign(s);
-
+    draw_compass(s);
     if (s->scene.controls_state.getEnabled()) {
       ui_draw_standstill(s);
     }

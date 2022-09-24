@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+import os
 import queue
 import threading
 import time
+import subprocess
+
 import cereal.messaging as messaging
 from common.params import Params
 from common.realtime import DT_TRML
@@ -10,7 +13,7 @@ import zmq
 
 # OPKR, this is for getting navi data from external device.
 
-def navid_thread(end_event, hw_queue):
+def navid_thread(end_event, nv_queue):
   pm = messaging.PubMaster(['liveENaviData'])
   count = 0
 
@@ -25,12 +28,18 @@ def navid_thread(end_event, hw_queue):
  
   check_connection = False
 
+  ip_count = int(len(Params().get("ExternalDeviceIP", encoding="utf8").split(',')))
+
+
   while not end_event.is_set():
     if not ip_bind:
-      if (count % int(5. / DT_TRML)) == 0:
+      if (count % int(max(60., ip_count) / DT_TRML)) == 0:
+        os.system("/data/openpilot/selfdrive/assets/addon/script/find_ip.sh &")
+      if (count % int((63+ip_count) / DT_TRML)) == 0:
         ip_add = Params().get("ExternalDeviceIPNow", encoding="utf8")
         if ip_add is not None:
           ip_bind = True
+          check_connection = True
 
     if ip_bind:
       spd_limit = 0
@@ -51,11 +60,13 @@ def navid_thread(end_event, hw_queue):
 
       message = str(socket.recv(), 'utf-8')
 
-      if message is not None:
-        check_connection = True
-      else:
-        check_connection = False
-
+      if (count % int(30. / DT_TRML)) == 0:
+        try:
+          rtext = subprocess.check_output(["netstat", "-tp"])
+          check_connection = True if str(rtext).find('navi') else False
+        except:
+          pass
+      
       for line in message.split('\n'):
         if "opkrspdlimit" in line:
           arr = line.split('opkrspdlimit: ')
@@ -87,10 +98,10 @@ def navid_thread(end_event, hw_queue):
 
 
 def main():
-  hw_queue = queue.Queue(maxsize=1)
+  nv_queue = queue.Queue(maxsize=1)
   end_event = threading.Event()
 
-  t = threading.Thread(target=navid_thread, args=(end_event, hw_queue))
+  t = threading.Thread(target=navid_thread, args=(end_event, nv_queue))
 
   t.start()
 
