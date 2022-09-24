@@ -1544,7 +1544,7 @@ static void ui_draw_vision_header(UIState *s) {
     ui_draw_vision_accel_brake(s);
     ui_draw_tpms(s);
     draw_safetysign(s);
-    draw_compass(s);
+    ui_draw_compass(s);
     if (s->scene.controls_state.getEnabled()) {
       ui_draw_standstill(s);
     }
