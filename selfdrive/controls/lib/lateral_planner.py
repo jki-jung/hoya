@@ -112,6 +112,8 @@ class LateralPlanner:
       self.t_idxs = np.array(md.position.t)
       self.plan_yaw = np.array(md.orientation.z)
       self.plan_yaw_rate = np.array(md.orientationRate.z)
+    if len(md.position.xStd) == TRAJECTORY_SIZE:
+      self.path_xyz_stds = np.column_stack([md.position.xStd, md.position.yStd, md.position.zStd])
 
     # Lane change logic
     lane_change_prob = self.LP.l_lane_change_prob + self.LP.r_lane_change_prob
@@ -122,46 +124,42 @@ class LateralPlanner:
       self.LP.lll_prob *= self.DH.lane_change_ll_prob
       self.LP.rll_prob *= self.DH.lane_change_ll_prob
 
-    # # Calculate final driving path and set MPC costs
-    # if self.use_lanelines:
-    #   d_path_xyz = self.LP.get_d_path(self.v_ego, self.t_idxs, self.path_xyz)
-    #   self.lat_mpc.set_weights(PATH_COST, HEADING_COST, STEER_RATE, 0.0)
-    #   self.laneless_mode_status = False
-    # elif self.laneless_mode == 0: # Lane Mode(0)
-    #   d_path_xyz = self.LP.get_d_path(self.v_ego, self.t_idxs, self.path_xyz)
-    #   self.lat_mpc.set_weights(PATH_COST, HEADING_COST, STEER_RATE, 0.0)
-    #   self.laneless_mode_status = False
-    # elif self.laneless_mode == 1: # Laneless Mode(1)
-    #   d_path_xyz = self.path_xyz
-    #   # Heading cost is useful at low speed, otherwise end of plan can be off-heading
-    #   self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,LATERAL_ACCEL_COST, LATERAL_JERK_COST)
-    #   self.laneless_mode_status = True
-    # elif self.laneless_mode == 2 and ((self.LP.lll_prob + self.LP.rll_prob)/2 < 0.2) and self.DH.lane_change_state == LaneChangeState.off:
-    #   d_path_xyz = self.path_xyz
-    #   # Heading cost is useful at low speed, otherwise end of plan can be off-heading
-    #   self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,LATERAL_ACCEL_COST, LATERAL_JERK_COST)
-    #   self.laneless_mode_status = True
-    #   self.laneless_mode_status_buffer = True
-    # elif self.laneless_mode == 2 and ((self.LP.lll_prob + self.LP.rll_prob)/2 > 0.5) and \
-    #   self.laneless_mode_status_buffer and self.DH.lane_change_state == LaneChangeState.off:
-    #   d_path_xyz = self.LP.get_d_path(self.v_ego, self.t_idxs, self.path_xyz)
-    #   self.lat_mpc.set_weights(PATH_COST, HEADING_COST, STEER_RATE, 0.0)
-    #   self.laneless_mode_status = False
-    #   self.laneless_mode_status_buffer = False
-    # elif self.laneless_mode == 2 and self.laneless_mode_status_buffer == True and self.DH.lane_change_state == LaneChangeState.off:
-    #   d_path_xyz = self.path_xyz
-    #   # Heading cost is useful at low speed, otherwise end of plan can be off-heading
-    #   self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,LATERAL_ACCEL_COST, LATERAL_JERK_COST)
-    #   self.laneless_mode_status = True
-    # else:
-    #   d_path_xyz = self.LP.get_d_path(self.v_ego, self.t_idxs, self.path_xyz)
-    #   self.lat_mpc.set_weights(PATH_COST, HEADING_COST, STEER_RATE, 0.0)
-    #   self.laneless_mode_status = False
-    #   self.laneless_mode_status_buffer = False
-
-    d_path_xyz = self.path_xyz
-    self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,
-                             LATERAL_ACCEL_COST, LATERAL_JERK_COST)
+    # Calculate final driving path and set MPC costs
+    if self.use_lanelines:
+      d_path_xyz = self.LP.get_d_path(self.v_ego, self.t_idxs, self.path_xyz)
+      self.lat_mpc.set_weights(PATH_COST, HEADING_COST, STEER_RATE)
+      self.laneless_mode_status = False
+    elif self.laneless_mode == 0: # Lane Mode(0)
+      d_path_xyz = self.LP.get_d_path(self.v_ego, self.t_idxs, self.path_xyz)
+      self.lat_mpc.set_weights(PATH_COST, HEADING_COST, STEER_RATE)
+      self.laneless_mode_status = False
+    elif self.laneless_mode == 1: # Laneless Mode(1)
+      d_path_xyz = self.path_xyz
+      # Heading cost is useful at low speed, otherwise end of plan can be off-heading
+      self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,LATERAL_ACCEL_COST, LATERAL_JERK_COST)
+      self.laneless_mode_status = True
+    elif self.laneless_mode == 2 and ((self.LP.lll_prob + self.LP.rll_prob)/2 < 0.2) and self.DH.lane_change_state == LaneChangeState.off:
+      d_path_xyz = self.path_xyz
+      # Heading cost is useful at low speed, otherwise end of plan can be off-heading
+      self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,LATERAL_ACCEL_COST, LATERAL_JERK_COST)
+      self.laneless_mode_status = True
+      self.laneless_mode_status_buffer = True
+    elif self.laneless_mode == 2 and ((self.LP.lll_prob + self.LP.rll_prob)/2 > 0.5) and \
+      self.laneless_mode_status_buffer and self.DH.lane_change_state == LaneChangeState.off:
+      d_path_xyz = self.LP.get_d_path(self.v_ego, self.t_idxs, self.path_xyz)
+      self.lat_mpc.set_weights(PATH_COST, HEADING_COST, STEER_RATE)
+      self.laneless_mode_status = False
+      self.laneless_mode_status_buffer = False
+    elif self.laneless_mode == 2 and self.laneless_mode_status_buffer == True and self.DH.lane_change_state == LaneChangeState.off:
+      d_path_xyz = self.path_xyz
+      # Heading cost is useful at low speed, otherwise end of plan can be off-heading
+      self.lat_mpc.set_weights(PATH_COST, LATERAL_MOTION_COST,LATERAL_ACCEL_COST, LATERAL_JERK_COST)
+      self.laneless_mode_status = True
+    else:
+      d_path_xyz = self.LP.get_d_path(self.v_ego, self.t_idxs, self.path_xyz)
+      self.lat_mpc.set_weights(PATH_COST, HEADING_COST, STEER_RATE)
+      self.laneless_mode_status = False
+      self.laneless_mode_status_buffer = False
 
     y_pts = np.interp(self.v_ego * self.t_idxs[:LAT_MPC_N + 1], np.linalg.norm(d_path_xyz, axis=1), d_path_xyz[:, 1])
     heading_pts = np.interp(self.v_ego * self.t_idxs[:LAT_MPC_N + 1], np.linalg.norm(self.path_xyz, axis=1), self.plan_yaw)
