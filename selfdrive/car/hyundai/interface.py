@@ -357,7 +357,7 @@ class CarInterface(CarInterfaceBase):
       if self.CC.auto_res_starting:
         events.add(EventName.resCruise)
       if self.CS.brakePressed:
-        events.add(EventName.promt)        
+        events.add(EventName.prompt)        
     if self.CS.cruiseState_standstill or self.CC.standstill_status == 1:
       #events.add(EventName.standStill)
       self.CP.standStill = True
