@@ -175,10 +175,10 @@ class NaviControl():
     #if not mapValid or trafficType == 0:
     #  return  cruise_set_speed_kph
 
-    #test cruise_set_speed_kph set to 30 when stopline & stop sign
-    # if 0 < self.sm['longitudinalPlan'].e2eX[12] < 100 and self.sm['longitudinalPlan'].stopLine[12] < 100 :
-    #   cruise_set_speed_kph = 30
-    #   return cruise_set_speed_kph
+    # Test cruise_set_speed_kph set to 30 when stopline & stop sign by Hoya
+    if (0 < self.sm['longitudinalPlan'].e2eX[12] < 100) and self.sm['longitudinalPlan'].stopLine[12] < 100:
+      cruise_set_speed_kph = interp(v_ego_kph, [50, 80], [30, 60]) # Hoya
+      return cruise_set_speed_kph
 
     if not self.speedlimit_decel_off:
       if self.osm_speedlimit_enabled and not self.sm['controlsState'].osmOffSpdLimit:  # osm speedlimit
@@ -246,7 +246,7 @@ class NaviControl():
           self.onSpeedBumpControl = True
         elif self.navi_sel in (0,1):
           # cruise_set_speed_kph == 20 if CS.is_set_speed_in_mph else 30
-          cruise_set_speed_kph = interp(v_ego_kph, [35, 40, 60, 80], [30, 35, 45, 60]) # Hoya
+          cruise_set_speed_kph = interp(v_ego_kph, [40, 80], [30, 60]) # Hoya
           self.onSpeedBumpControl = True
         else:
           self.onSpeedBumpControl = False
