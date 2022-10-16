@@ -22,7 +22,7 @@ const double SANE_GPS_UNCERTAINTY = 1500.0; // m
 
 // TODO: GPS sensor time offsets are empirically calculated
 // They should be replaced with synced time from a real clock
-// const double GPS_LOCATION_SENSOR_TIME_OFFSET = 0.630; // s
+const double GPS_LOCATION_SENSOR_TIME_OFFSET = 0.630; // s
 const double GPS_LOCATION_EXTERNAL_SENSOR_TIME_OFFSET = 0.095; // s
 
 static VectorXd floatlist2vector(const capnp::List<float, capnp::Kind::PRIMITIVE>::Reader& floatlist) {
@@ -255,12 +255,12 @@ void Localizer::input_fake_gps_observations(double current_time) {
   // Steps : first predict -> observe current obs with reasonable STD
   this->kf->predict(current_time);
 
-  VectorXd current_x = this->kf->get_x();  
+  VectorXd current_x = this->kf->get_x();
   VectorXd ecef_pos = current_x.segment<STATE_ECEF_POS_LEN>(STATE_ECEF_POS_START);
   VectorXd ecef_vel = current_x.segment<STATE_ECEF_VELOCITY_LEN>(STATE_ECEF_VELOCITY_START);
   MatrixXdr ecef_pos_R = this->kf->get_fake_gps_pos_cov();
   MatrixXdr ecef_vel_R = this->kf->get_fake_gps_vel_cov();
-  
+
   this->kf->predict_and_observe(current_time, OBSERVATION_ECEF_POS, { ecef_pos }, { ecef_pos_R });
   this->kf->predict_and_observe(current_time, OBSERVATION_ECEF_VEL, { ecef_vel }, { ecef_vel_R });
 }
@@ -273,10 +273,12 @@ void Localizer::handle_gps(double current_time, const cereal::GpsLocationData::R
   bool gps_lat_lng_alt_insane = ((std::abs(log.getLatitude()) > 90) || (std::abs(log.getLongitude()) > 180) || (std::abs(log.getAltitude()) > ALTITUDE_SANITY_CHECK));
   bool gps_vel_insane = (floatlist2vector(log.getVNED()).norm() > TRANS_SANITY_CHECK);
 
-  if (gps_invalid_flag || gps_unreasonable || gps_accuracy_insane || gps_lat_lng_alt_insane || gps_vel_insane){
+  if (gps_invalid_flag || gps_unreasonable || gps_accuracy_insane || gps_lat_lng_alt_insane || gps_vel_insane) {
     this->determine_gps_mode(current_time);
     return;
   }
+  
+  double sensor_time = current_time - sensor_time_offset;
 
 
   double sensor_time = current_time - sensor_time_offset;
