@@ -280,9 +280,6 @@ void Localizer::handle_gps(double current_time, const cereal::GpsLocationData::R
   
   double sensor_time = current_time - sensor_time_offset;
 
-
-  double sensor_time = current_time - sensor_time_offset;
-
   // Process message
   this->last_gps_fix = sensor_time;
   this->gps_mode = true;
