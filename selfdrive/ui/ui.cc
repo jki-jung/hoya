@@ -117,6 +117,7 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
   for (int i = 0; i < std::size(scene.road_edge_vertices); i++) {
     scene.road_edge_stds[i] = road_edge_stds[i];
     update_line_data(s, road_edges[i].getX(),road_edges[i].getY() , road_edges[i].getZ(), 0.2, 0, &scene.road_edge_vertices[i], max_idx);
+  }
 }
 
 static void update_plan(UIState *s) {
