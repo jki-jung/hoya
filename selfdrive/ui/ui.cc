@@ -122,6 +122,10 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
 
 static void update_plan(UIState *s) {
   UIScene &scene = s->scene;
+  auto model_position = model.getPosition();  
+  const auto lane_lines = model.getLaneLines();  
+  const auto lane_line_probs = model.getLaneLineProbs();
+  int max_idx = get_path_length_idx(lane_lines[0], max_distance);  
   // update path
   const auto plan_y = (*s->sm)["lateralPlan"].getLateralPlan().getYs();
   const auto plan_x = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getXs();
