@@ -54,9 +54,11 @@ static void update_leads(UIState *s, const cereal::RadarState::Reader &radar_sta
   }
 }
 
-static void update_line_data(const UIState *s, const cereal::ModelDataV2::XYZTData::Reader &line,
+static void update_line_data(const UIState *s, const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_x, 
+                             const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_y , 
+                            const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_z,
                              float y_off, float z_off, line_vertices_data *pvd, int max_idx) {
-  const auto line_x = line.getX(), line_y = line.getY(), line_z = line.getZ();
+
   vertex_data *v = &pvd->v[0];
   for (int i = 0; i <= max_idx; i++) {
     v += calib_frame_to_full_frame(s, line_x[i], line_y[i] - y_off, line_z[i] + z_off, v);
@@ -106,7 +108,7 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
   int max_idx = get_path_length_idx(lane_lines[0], max_distance);
   for (int i = 0; i < std::size(scene.lane_line_vertices); i++) {
     scene.lane_line_probs[i] = lane_line_probs[i];
-    update_line_data(s, lane_lines[i], 0.05 * scene.lane_line_probs[i], 0, &scene.lane_line_vertices[i], max_idx);
+    update_line_data(s, lane_lines[i].getX(), lane_lines[i].getY(), lane_lines[i].getZ(), 0.05 * scene.lane_line_probs[i], 0, &scene.lane_line_vertices[i], max_idx);
   }
 
   // update road edges
@@ -114,17 +116,19 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
   const auto road_edge_stds = model.getRoadEdgeStds();
   for (int i = 0; i < std::size(scene.road_edge_vertices); i++) {
     scene.road_edge_stds[i] = road_edge_stds[i];
-    update_line_data(s, road_edges[i], 0.2, 0, &scene.road_edge_vertices[i], max_idx);
-  }
+    update_line_data(s, road_edges[i].getX(),road_edges[i].getY() , road_edges[i].getZ(), 0.2, 0, &scene.road_edge_vertices[i], max_idx);
+}
 
+static void update_plan(UIState *s) {
   // update path
-  auto lead_one = (*s->sm)["radarState"].getRadarState().getLeadOne();
-  if (lead_one.getStatus()) {
-    const float lead_d = lead_one.getDRel() * 2.;
-    max_distance = std::clamp((float)(lead_d - fmin(lead_d * 0.35, 10.)), 0.0f, max_distance);
+  const auto plan_y = (*s->sm)["lateralPlan"].getLateralPlan().getYs();
+  const auto plan_x = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getXs();
+  const auto plan_z = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getZs();
+
+  if (plan_y.size() == CONTROL_N && plan_x.size() == CONTROL_N && plan_z.size() == CONTROL_N) {
+    UIScene &scene = s->scene;
+    update_line_data(s, plan_x, plan_y, plan_z , 1.0, 1.22, &scene.track_vertices, CONTROL_N - 1, false);
   }
-  max_idx = get_path_length_idx(model_position, max_distance);
-  update_line_data(s, model_position, 1.0, 1.22, &scene.track_vertices, max_idx);
 
    // update blindspot line
   scene.lane_blindspot_probs[0] = lane_line_probs[1];
@@ -311,6 +315,7 @@ static void update_state(UIState *s) {
     scene.lateralPlan.totalCameraOffset = lp_data.getTotalCameraOffset();
   }
   if (sm.updated("longitudinalPlan")) {
+    update_plan(s);    
     scene.longitudinal_plan = sm["longitudinalPlan"].getLongitudinalPlan();
     auto lop_data = sm["longitudinalPlan"].getLongitudinalPlan();
     for (int i = 0; i < std::size(scene.longitudinalPlan.e2ex); i++) {
