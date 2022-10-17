@@ -140,7 +140,7 @@ static void update_plan(UIState *s) {
   const auto plan_y = (*s->sm)["lateralPlan"].getLateralPlan().getYs();
   const auto plan_x = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getXs();
   const auto plan_z = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getZs();
-  
+
   if (plan_y.size() == CONTROL_N && plan_x.size() == CONTROL_N && plan_z.size() == CONTROL_N) {
     UIScene &scene = s->scene;
     update_line_data(s, plan_x, plan_y, plan_z , 1.0, 1.22, &scene.track_vertices, CONTROL_N - 1, false);
@@ -316,7 +316,7 @@ static void update_state(UIState *s) {
     scene.lateralPlan.totalCameraOffset = lp_data.getTotalCameraOffset();
   }
   if (sm.updated("longitudinalPlan")) {
-    update_plan(s, sm["modelV2"].getModelV2());    
+    update_plan(s);    
     scene.longitudinal_plan = sm["longitudinalPlan"].getLongitudinalPlan();
     auto lop_data = sm["longitudinalPlan"].getLongitudinalPlan();
     for (int i = 0; i < std::size(scene.longitudinalPlan.e2ex); i++) {
