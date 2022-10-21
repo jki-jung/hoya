@@ -19,9 +19,10 @@ V_CRUISE_MAX = 160
 V_CRUISE_MIN = 30
 V_CRUISE_DELTA = 10
 V_CRUISE_ENABLE_MIN = 30
-LAT_MPC_N = 22
+MIN_SPEED = 1.0
+LAT_MPC_N = 16
 LON_MPC_N = 32
-CONTROL_N = 23
+CONTROL_N = 17
 CAR_ROTATION_RADIUS = 0.0
 
 # EU guidelines
@@ -119,7 +120,7 @@ def get_lag_adjusted_curvature(CP, v_ego, psis, curvatures, curvature_rates):
     curvatures = [0.0]*CONTROL_N
     curvature_rates = [0.0]*CONTROL_N
 
-  v_ego = max(v_ego, 0.1)
+  v_ego = max(MIN_SPEED, v_ego)
 
   # TODO this needs more thought, use .2s extra for now to estimate other delays
   delay = max(0.01, CP.steerActuatorDelay)
