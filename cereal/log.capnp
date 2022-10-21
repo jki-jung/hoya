@@ -941,6 +941,10 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   stopLine @42 :List(Float64) = [0.];
   stoplineProb @43 :Float32;
 
+  # desired xs over next 2.5 s
+  xs @44 :List(Float32);
+  zs @45 :List(Float32);
+
   enum LongitudinalPlanSource {
     lead0 @0;
     lead1 @1;
@@ -1012,6 +1016,9 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   lanelessMode @36 :Bool;
   modelSpeed @37 :Float32;
   totalCameraOffset @38 :Float32;
+
+  # desired y positions over next 2.5s in m
+  ys @39 :List(Float32);  
 
   enum Desire {
     none @0;
