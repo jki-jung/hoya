@@ -226,14 +226,14 @@ static void ui_draw_vision_lane_lines(UIState *s) {
   if (scene.controls_state.getEnabled()) { 
     if (steerOverride) {
       track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-        COLOR_BLACK_ALPHA(80), COLOR_BLACK_ALPHA(20));
+                                    COLOR_BLACK_ALPHA(80), COLOR_BLACK_ALPHA(20));
     } else {
       if (!scene.lateralPlan.lanelessModeStatus) {
         track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-                    nvgRGBA(red_lvl, green_lvl, 0, 200), nvgRGBA(250, 250, 0, 100)); // nvgRGBA((int)(0.7*red_lvl), (int)(0.7*green_lvl), 0, 1));
+                                     nvgRGBA(red_lvl, green_lvl, 0, 200), nvgRGBA(250, 230, 0, 50)); // nvgRGBA((int)(0.7*red_lvl), (int)(0.7*green_lvl), 0, 1));
       } else { //laneless status
         track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-                    nvgRGBA(red_lvl, 50, green_lvl, 200), nvgRGBA(250, 250, 0, 100)); // nvgRGBA((int)(0.7*red_lvl), 50, (int)(0.7*green_lvl), 1));
+                                     nvgRGBA(red_lvl, 50, green_lvl, 200), nvgRGBA(250, 50, 250, 50)); // nvgRGBA((int)(0.7*red_lvl), 50, (int)(0.7*green_lvl), 1));
       }
     }
   } else {
