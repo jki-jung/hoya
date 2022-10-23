@@ -17,7 +17,7 @@ LaneChangeState = log.LateralPlan.LaneChangeState
 class NaviControl():
   def __init__(self):
 
-    self.sm = messaging.SubMaster(['liveNaviData', 'liveENaviData', 'lateralPlan', 'radarState', 'controlsState', 'liveMapData', 'longitudinalPlan'])
+    self.sm = messaging.SubMaster(['liveNaviData', 'liveENaviData', 'lateralPlan', 'radarState', 'controlsState', 'liveMapData'])
 
     self.btn_cnt = 0
     self.seq_command = 0
@@ -176,6 +176,12 @@ class NaviControl():
     #  return  cruise_set_speed_kph
 
     if not self.speedlimit_decel_off:
+
+      # # Test cruise_set_speed_kph set to 30 when stopline & stop sign by Hoya
+      # if (0 < self.sm['longitudinalPlan'].e2eX[12] < 100) and self.sm['longitudinalPlan'].stopLine[12] < 100:
+      #   cruise_set_speed_kph = interp(v_ego_kph, [50, 80], [30, 60]) # Hoya
+      #   return cruise_set_speed_kph
+
       if self.osm_speedlimit_enabled and not self.sm['controlsState'].osmOffSpdLimit:  # osm speedlimit
         if self.sm['liveMapData'].speedLimit > 21 or self.sm['liveMapData'].speedLimitAhead > 21:
           # spdTarget = cruiseState_speed
@@ -316,10 +322,6 @@ class NaviControl():
           self.onSpeedControl = True
         else:
           self.onSpeedControl = False
-      # Test cruise_set_speed_kph set to 30 when stopline & stop sign by Hoya
-      elif (0 < self.sm['longitudinalPlan'].e2eX[12] < 100) and self.sm['longitudinalPlan'].stopLine[12] < 100:
-        cruise_set_speed_kph = interp(v_ego_kph, [50, 80], [30, 50]) # Hoya
-        self.onSpeedControl = True
       else:
         spdTarget = cruise_set_speed_kph
         self.onSpeedControl = False
