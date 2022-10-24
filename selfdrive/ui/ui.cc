@@ -54,10 +54,10 @@ static void update_leads(UIState *s, const cereal::RadarState::Reader &radar_sta
   }
 }
 
-static void update_line_data(const UIState *s, const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_x,
-                             const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_y,
-                             const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_z,
-                             float y_off, float z_off, line_vertices_data *pvd, int max_idx, bool allow_invert=true) {
+static void update_line_data(const UIState *s, const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_x, 
+                             const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_y , 
+                            const ::capnp::List<float, ::capnp::Kind::PRIMITIVE>::Reader &line_z,
+                             float y_off, float z_off, line_vertices_data *pvd, int max_idx) {
 
   vertex_data *v = &pvd->v[0];
   for (int i = 0; i <= max_idx; i++) {
