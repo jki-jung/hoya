@@ -120,8 +120,9 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
   }
 }
 
-static void update_plan(UIState *s, const cereal::ModelDataV2::Reader &model) {
+static void update_plan(UIState *s) {
   UIScene &scene = s->scene;
+  auto model_position = model.getPosition();  
   const auto lane_lines = model.getLaneLines();  
   const auto lane_line_probs = model.getLaneLineProbs();
   int max_idx = get_path_length_idx(lane_lines[0], max_distance);  
@@ -318,7 +319,7 @@ static void update_state(UIState *s) {
     scene.lateralPlan.totalCameraOffset = lp_data.getTotalCameraOffset();
   }
   if (sm.updated("longitudinalPlan")) {
-    update_plan(s, sm["modelV2"].getModelV2());    
+    update_plan(s);    
     scene.longitudinal_plan = sm["longitudinalPlan"].getLongitudinalPlan();
     auto lop_data = sm["longitudinalPlan"].getLongitudinalPlan();
     for (int i = 0; i < std::size(scene.longitudinalPlan.e2ex); i++) {
