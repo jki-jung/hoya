@@ -118,6 +118,20 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
     scene.road_edge_stds[i] = road_edge_stds[i];
     update_line_data(s, road_edges[i].getX(),road_edges[i].getY() , road_edges[i].getZ(), 0.2, 0, &scene.road_edge_vertices[i], max_idx);
   }
+}
+
+static void update_plan(UIState *s, const cereal::ModelDataV2::Reader &model) {
+  UIScene &scene = s->scene;
+  const auto lane_lines = model.getLaneLines();  
+  const auto lane_line_probs = model.getLaneLineProbs();
+  int max_idx = get_path_length_idx(lane_lines[0], max_distance);  
+  // update path
+  const auto plan_y = (*s->sm)["lateralPlan"].getLateralPlan().getYs();
+  const auto plan_x = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getXs();
+  const auto plan_z = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getZs();
+  if (plan_y.size() == CONTROL_N && plan_x.size() == CONTROL_N && plan_z.size() == CONTROL_N) {
+    update_line_data(s, plan_x, plan_y, plan_z , 1.0, 1.22, &scene.track_vertices, CONTROL_N - 1, false);
+  }
 
    // update blindspot line
   scene.lane_blindspot_probs[0] = lane_line_probs[1];
@@ -132,18 +146,6 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
     if (stop_line.getProb() > .5) {
       update_stop_line_data(s, stop_line, .5, 2, 1.22, &scene.stop_line_vertices);
     }
-  }  
-}
-
-static void update_plan(UIState *s) {
-  // update path
-  const auto plan_y = (*s->sm)["lateralPlan"].getLateralPlan().getYs();
-  const auto plan_x = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getXs();
-  const auto plan_z = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getZs();
-  
-  if (plan_y.size() == CONTROL_N && plan_x.size() == CONTROL_N && plan_z.size() == CONTROL_N) {
-    UIScene &scene = s->scene;
-    update_line_data(s, plan_x, plan_y, plan_z , 1.0, 1.22, &scene.track_vertices, CONTROL_N - 1, false);
   }
 }
 
