@@ -178,7 +178,7 @@ static void ui_draw_vision_lane_lines(UIState *s) {
   UIScene &scene = s->scene;
   NVGpaint track_bg;
   int steerOverride = scene.car_state.getSteeringPressed();
-  int torque_scale = (int)fabs(255*(float)scene.output_scale*0.9);
+  int torque_scale = (int)fabs(255*(float)scene.output_scale);
   int red_lvl = fmin(255, torque_scale);
   int green_lvl = fmin(255, 255-torque_scale);
 
@@ -226,20 +226,20 @@ static void ui_draw_vision_lane_lines(UIState *s) {
   if (scene.controls_state.getEnabled()) { 
     if (steerOverride) {
       track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-                                    COLOR_BLACK_ALPHA(80), COLOR_BLACK_ALPHA(20));
+                                    COLOR_BLACK_ALPHA(80), COLOR_BLACK_ALPHA(10));
     } else {
       if (!scene.lateralPlan.lanelessModeStatus) {
         track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-                                     nvgRGBA(red_lvl, green_lvl, 0, 200), nvgRGBA(250, 230, 0, 50)); // nvgRGBA((int)(0.7*red_lvl), (int)(0.7*green_lvl), 0, 1));
+                                     nvgRGBA(red_lvl, green_lvl, 0, 200), COLOR_YELLOW_ALPHA(50)); // nvgRGBA((int)(0.7*red_lvl), (int)(0.7*green_lvl), 0, 1));
       } else { //laneless status
         track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h*.4,
-                                     nvgRGBA(red_lvl, 50, green_lvl, 200), nvgRGBA(250, 50, 250, 50)); // nvgRGBA((int)(0.7*red_lvl), 50, (int)(0.7*green_lvl), 1));
+                                     nvgRGBA(red_lvl, 50, green_lvl, 200), COLOR_YELLOW_ALPHA(50)); // nvgRGBA((int)(0.7*red_lvl), 50, (int)(0.7*green_lvl), 1));
       }
     }
   } else {
-    // Draw white vision track
+    // Draw yellow vision track when not enable
     track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h * .4,
-                                        COLOR_WHITE_ALPHA(150), COLOR_WHITE_ALPHA(1));
+                                        COLOR_YELLOW_ALPHA(100), COLOR_WHITE_ALPHA(10));
   }
   // paint path
   ui_draw_line(s, scene.track_vertices, nullptr, &track_bg);
