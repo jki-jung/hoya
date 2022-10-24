@@ -121,12 +121,13 @@ static void update_model(UIState *s, const cereal::ModelDataV2::Reader &model) {
 }
 
 static void update_plan(UIState *s) {
-  UIScene &scene = s->scene;
   // update path
   const auto plan_y = (*s->sm)["lateralPlan"].getLateralPlan().getYs();
   const auto plan_x = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getXs();
   const auto plan_z = (*s->sm)["longitudinalPlan"].getLongitudinalPlan().getZs();
+
   if (plan_y.size() == CONTROL_N && plan_x.size() == CONTROL_N && plan_z.size() == CONTROL_N) {
+    UIScene &scene = s->scene;
     update_line_data(s, plan_x, plan_y, plan_z , 1.0, 1.22, &scene.track_vertices, CONTROL_N - 1, false);
   }
 
