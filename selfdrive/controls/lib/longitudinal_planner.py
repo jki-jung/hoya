@@ -98,29 +98,22 @@ class Planner:
     self.mpc.set_accel_limits(accel_limits_turns[0], accel_limits_turns[1])
     self.mpc.set_cur_state(self.v_desired_filter.x, self.a_desired)
     if (len(sm['modelV2'].position.x) == 33 and
-        len(sm['modelV2'].position.z) == 33 and
-        len(sm['modelV2'].velocity.x) == 33 and
-        len(sm['modelV2'].acceleration.x) == 33):
+         len(sm['modelV2'].velocity.x) == 33 and
+          len(sm['modelV2'].acceleration.x) == 33):
       x = np.interp(T_IDXS_MPC, T_IDXS, sm['modelV2'].position.x)
-      z = np.interp(T_IDXS_MPC, T_IDXS, sm['modelV2'].position.z)
       v = np.interp(T_IDXS_MPC, T_IDXS, sm['modelV2'].velocity.x)
       a = np.interp(T_IDXS_MPC, T_IDXS, sm['modelV2'].acceleration.x)
     else:
       x = np.zeros(len(T_IDXS_MPC))
       v = np.zeros(len(T_IDXS_MPC))
       a = np.zeros(len(T_IDXS_MPC))
-      z = np.zeros(len(T_IDXS_MPC))
-
     self.mpc.update(sm['carState'], sm['radarState'], sm['modelV2'], v_cruise, x, v, a)
-
-    self.x_desired_trajectory = np.interp(T_IDXS[:CONTROL_N], T_IDXS_MPC, self.mpc.x_solution)
     self.v_desired_trajectory = np.interp(T_IDXS[:CONTROL_N], T_IDXS_MPC, self.mpc.v_solution)
     self.a_desired_trajectory = np.interp(T_IDXS[:CONTROL_N], T_IDXS_MPC, self.mpc.a_solution)
     self.j_desired_trajectory = np.interp(T_IDXS[:CONTROL_N], T_IDXS_MPC[:-1], self.mpc.j_solution)
-    self.z_model = np.interp(T_IDXS[:CONTROL_N], T_IDXS_MPC, z)
 
     # TODO counter is only needed because radar is glitchy, remove once radar is gone
-    self.fcw = self.mpc.crash_cnt > 5
+    self.fcw = self.mpc.crash_cnt > 5 and not sm['carState'].standstill
     if self.fcw:
       cloudlog.info("FCW triggered")
 
@@ -137,9 +130,6 @@ class Planner:
     longitudinalPlan = plan_send.longitudinalPlan
     longitudinalPlan.modelMonoTime = sm.logMonoTime['modelV2']
     longitudinalPlan.processingDelay = (plan_send.logMonoTime / 1e9) - sm.logMonoTime['modelV2']
-
-    longitudinalPlan.xs = self.x_desired_trajectory.tolist()
-    longitudinalPlan.zs = self.z_model.tolist()
 
     longitudinalPlan.speeds = self.v_desired_trajectory.tolist()
     longitudinalPlan.accels = self.a_desired_trajectory.tolist()
